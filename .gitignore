@@ -145,8 +145,10 @@ docs/
 
 # Claude
 .claude/
-CLAUDE.md
 .DS_Store
+
+# Allow CLAUDE.md documentation
+!CLAUDE.md
 
 # Pnpm
 .pnpm-store/
