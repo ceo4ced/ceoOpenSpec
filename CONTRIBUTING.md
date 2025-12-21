@@ -25,6 +25,11 @@ Thank you for your interest in contributing to OpenSpec! This guide will help yo
 
 1. **Fork and clone the repository**
    ```bash
+   # If contributing to the upstream project:
+   git clone https://github.com/YOUR_USERNAME/OpenSpec.git
+   cd OpenSpec
+   
+   # Or for this fork:
    git clone https://github.com/YOUR_USERNAME/ceoOpenSpec.git
    cd ceoOpenSpec
    ```
@@ -353,8 +358,9 @@ This creates a file in `.changeset/` that will be used during release.
 ## Getting Help
 
 - **Discord**: Join our [Discord community](https://discord.gg/YctCnvvshC)
-- **Issues**: Check [existing issues](https://github.com/Fission-AI/OpenSpec/issues) or create a new one
+- **Issues**: Check existing issues or create a new one in the repository
 - **Twitter**: Follow [@0xTab](https://x.com/0xTab) for updates
+- **Upstream**: [Fission-AI/OpenSpec](https://github.com/Fission-AI/OpenSpec) - Main repository
 
 ## License
 
