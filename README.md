@@ -384,9 +384,9 @@ We welcome contributions! OpenSpec uses spec-driven development for its own deve
 **Quick Reference for Contributors:**
 
 ```bash
-# Setup
-git clone https://github.com/YOUR_USERNAME/ceoOpenSpec.git
-cd ceoOpenSpec
+# Setup (fork the repo first)
+git clone https://github.com/YOUR_USERNAME/OpenSpec.git
+cd OpenSpec
 pnpm install
 pnpm run build
 
