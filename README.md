@@ -30,6 +30,11 @@
 
 OpenSpec aligns humans and AI coding assistants with spec-driven development so you agree on what to build before any code is written. **No API keys required.**
 
+---
+
+**📚 Documentation:**
+[Quick Start](QUICKSTART.md) · [Getting Started](#getting-started) · [Examples](#example-how-ai-creates-openspec-files) · [Command Reference](#command-reference) · [Contributing](CONTRIBUTING.md)
+
 ## Why OpenSpec?
 
 AI coding assistants are powerful but unpredictable when requirements live in chat history. OpenSpec adds a lightweight specification workflow that locks intent before implementation, giving you deterministic, reviewable outputs.
@@ -370,11 +375,38 @@ Run `openspec update` whenever someone switches tools so your agents pick up the
 
 ## Contributing
 
-- Install dependencies: `pnpm install`
-- Build: `pnpm run build`
-- Test: `pnpm test`
-- Develop CLI locally: `pnpm run dev` or `pnpm run dev:cli`
-- Conventional commits (one-line): `type(scope): subject`
+We welcome contributions! OpenSpec uses spec-driven development for its own development.
+
+**Quick Links:**
+- **[Contributing Guide](CONTRIBUTING.md)** - Full developer guide with setup, workflow, and testing
+- **[Quick Start](QUICKSTART.md)** - Get started with OpenSpec in 5 minutes
+
+**Quick Reference for Contributors:**
+
+```bash
+# Setup
+git clone https://github.com/YOUR_USERNAME/ceoOpenSpec.git
+cd ceoOpenSpec
+pnpm install
+pnpm run build
+
+# Development
+pnpm run dev              # Watch mode
+pnpm run dev:cli          # Test CLI
+pnpm test                 # Run tests
+pnpm test:watch           # Watch mode tests
+
+# Before submitting
+pnpm test                 # Ensure tests pass
+pnpm run build            # Ensure it builds
+pnpm changeset            # Document your changes
+```
+
+**Commit Convention:**
+- Use [Conventional Commits](https://conventionalcommits.org/): `type(scope): subject`
+- Examples: `feat(cli): add --json flag`, `fix(archive): prevent data loss`, `docs: update contributing guide`
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines on code style, testing, and the development workflow.
 
 ## License
 
