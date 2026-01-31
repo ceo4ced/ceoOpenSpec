@@ -56,14 +56,6 @@ export default function Sidebar() {
                     <span className="nav-icon">💰</span>
                     <span>CFO</span>
                 </Link>
-                <Link href="/cmo" className={`nav-item ${isActive('cmo')}`}>
-                    <span className="nav-icon">📣</span>
-                    <span>CMO</span>
-                </Link>
-                <Link href="/coo" className={`nav-item ${isActive('coo')}`}>
-                    <span className="nav-icon">⚙️</span>
-                    <span>COO</span>
-                </Link>
                 <Link href="/cio" className={`nav-item ${isActive('cio')}`}>
                     <span className="nav-icon">🔐</span>
                     <span>CIO</span>
@@ -71,6 +63,14 @@ export default function Sidebar() {
                 <Link href="/clo" className={`nav-item ${isActive('clo')}`}>
                     <span className="nav-icon">⚖️</span>
                     <span>CLO</span>
+                </Link>
+                <Link href="/cmo" className={`nav-item ${isActive('cmo')}`}>
+                    <span className="nav-icon">📣</span>
+                    <span>CMO</span>
+                </Link>
+                <Link href="/coo" className={`nav-item ${isActive('coo')}`}>
+                    <span className="nav-icon">⚙️</span>
+                    <span>COO</span>
                 </Link>
                 <Link href="/cpo" className={`nav-item ${isActive('cpo')}`}>
                     <span className="nav-icon">📦</span>
