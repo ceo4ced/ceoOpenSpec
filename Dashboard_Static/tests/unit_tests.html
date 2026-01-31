@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard Unit Tests</title>
+    <style>
+        body {
+            font-family: monospace;
+            background: #1a1a1a;
+            color: #fff;
+            padding: 20px;
+        }
+
+        .pass {
+            color: #4ade80;
+        }
+
+        .fail {
+            color: #f87171;
+        }
+
+        .test-item {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Dashboard Unit Tests</h1>
+    <div id="results">Running tests...</div>
+
+    <!-- Hidden Mock DOM for Testing -->
+    <div id="mock-dom" style="visibility: hidden; position: absolute; top: -9999px;">
+        <nav class="sidebar">
+            <a href="#" class="nav-item" data-page="chairman"></a>
+        </nav>
+        <main class="main-content">
+            <h1 id="pageTitle"></h1>
+            <div id="lastUpdated"></div>
+            <div id="dashboardContent"></div>
+            <button id="refreshBtn"></button>
+            <button id="redPhoneBtn"></button>
+            <button id="sendRedPhone"></button>
+            <textarea id="redPhoneMessage"></textarea>
+            <div id="redPhoneModal" class="modal"></div>
+        </main>
+        <aside class="profile-sidebar" id="profileSidebar">
+            <button id="closeProfile"></button>
+            <img id="profileImage">
+            <div id="profileName"></div>
+            <div id="profileRole"></div>
+            <div id="profileEnneagram"></div>
+            <div id="profileMbti"></div>
+            <div id="profileWestern"></div>
+            <div id="profileChinese"></div>
+            <div id="profileCommStyle"></div>
+            <div id="profileSampleVoice"></div>
+            <div id="profileCurrentTask"></div>
+            <div id="profileTokens"></div>
+            <div id="profileLastAction"></div>
+        </aside>
+    </div>
+
+    <!-- Load App Scripts -->
+    <script src="../js/data.js"></script>
+    <script src="../js/app.js"></script>
+
+    <!-- Test Runner -->
+    <script src="tests.js"></script>
+</body>
+
+</html>

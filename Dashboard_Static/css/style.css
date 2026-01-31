@@ -6,11 +6,11 @@
     --bg-tertiary: #1f2937;
     --bg-card: #1a1f2e;
     --bg-card-hover: #242b3d;
-    
+
     --text-primary: #f9fafb;
     --text-secondary: #9ca3af;
     --text-muted: #6b7280;
-    
+
     --accent-gold: #fbbf24;
     --accent-blue: #3b82f6;
     --accent-green: #10b981;
@@ -19,26 +19,26 @@
     --accent-pink: #ec4899;
     --accent-orange: #f97316;
     --accent-cyan: #06b6d4;
-    
+
     --border-color: #374151;
     --border-light: #4b5563;
-    
+
     /* Gradients */
     --gradient-gold: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
     --gradient-blue: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
     --gradient-green: linear-gradient(135deg, #10b981 0%, #059669 100%);
     --gradient-red: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
     --gradient-purple: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
-    
+
     /* Sizes */
     --sidebar-width: 240px;
     --header-height: 64px;
     --profile-width: 320px;
-    
+
     /* Transitions */
     --transition-fast: 0.15s ease;
     --transition-normal: 0.3s ease;
-    
+
     /* Shadows */
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
     --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
@@ -47,7 +47,9 @@
 }
 
 /* ===== Reset & Base ===== */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -92,9 +94,11 @@ button {
     border-right: 1px solid var(--border-color);
     display: flex;
     flex-direction: column;
-    position: fixed;
+    position: sticky;
+    top: 0;
     height: 100vh;
     z-index: 100;
+    flex-shrink: 0;
 }
 
 .sidebar-header {
@@ -197,10 +201,11 @@ button {
 /* ===== Main Content ===== */
 .main-content {
     flex: 1;
-    margin-left: var(--sidebar-width);
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    min-width: 0;
+    /* Prevents flex items from overflowing */
 }
 
 .main-header {
@@ -418,13 +423,29 @@ button {
     gap: 1.5rem;
 }
 
-.col-4 { grid-column: span 4; }
-.col-6 { grid-column: span 6; }
-.col-8 { grid-column: span 8; }
-.col-12 { grid-column: span 12; }
+.col-4 {
+    grid-column: span 4;
+}
+
+.col-6 {
+    grid-column: span 6;
+}
+
+.col-8 {
+    grid-column: span 8;
+}
+
+.col-12 {
+    grid-column: span 12;
+}
 
 @media (max-width: 1200px) {
-    .col-4, .col-6, .col-8 { grid-column: span 12; }
+
+    .col-4,
+    .col-6,
+    .col-8 {
+        grid-column: span 12;
+    }
 }
 
 /* ===== Agent Status Grid ===== */
@@ -625,9 +646,17 @@ button {
     transition: width var(--transition-normal);
 }
 
-.progress-fill.success { background: var(--gradient-green); }
-.progress-fill.warning { background: var(--gradient-gold); }
-.progress-fill.danger { background: var(--gradient-red); }
+.progress-fill.success {
+    background: var(--gradient-green);
+}
+
+.progress-fill.warning {
+    background: var(--gradient-gold);
+}
+
+.progress-fill.danger {
+    background: var(--gradient-red);
+}
 
 /* ===== Charts ===== */
 .chart-container {
@@ -723,20 +752,24 @@ button {
 
 /* ===== Profile Sidebar ===== */
 .profile-sidebar {
-    width: var(--profile-width);
+    width: 0;
     background: var(--bg-secondary);
     border-left: 1px solid var(--border-color);
-    position: fixed;
-    right: -var(--profile-width);
-    top: 0;
     height: 100vh;
     overflow-y: auto;
-    transition: right var(--transition-normal);
-    z-index: 200;
+    overflow-x: hidden;
+    transition: width var(--transition-normal);
+    position: sticky;
+    top: 0;
+    flex-shrink: 0;
 }
 
 .profile-sidebar.open {
-    right: 0;
+    width: var(--profile-width);
+}
+
+.profile-content-wrapper {
+    width: var(--profile-width);
 }
 
 .close-profile {
@@ -765,6 +798,12 @@ button {
     text-align: center;
     background: linear-gradient(180deg, var(--bg-tertiary) 0%, var(--bg-secondary) 100%);
     border-bottom: 1px solid var(--border-color);
+    width: var(--profile-width);
+    /* Fix width to prevent squashing */
+}
+
+.profile-content {
+    width: var(--profile-width);
 }
 
 .profile-image-container {
@@ -920,6 +959,7 @@ button {
         opacity: 0;
         transform: translateY(-20px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -1068,8 +1108,15 @@ button {
 
 /* ===== Animations ===== */
 @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.5; }
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
 }
 
 .animate-pulse {
@@ -1077,8 +1124,13 @@ button {
 }
 
 @keyframes spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 .animate-spin {
@@ -1090,22 +1142,22 @@ button {
     .sidebar {
         width: 60px;
     }
-    
+
     .sidebar .logo-text,
     .sidebar .nav-section-title,
     .sidebar .nav-item span:not(.nav-icon),
     .sidebar .system-status span:not(.status-dot) {
         display: none;
     }
-    
+
     .main-content {
         margin-left: 60px;
     }
-    
+
     .metrics-grid {
         grid-template-columns: 1fr;
     }
-    
+
     .agent-grid {
         grid-template-columns: 1fr;
     }

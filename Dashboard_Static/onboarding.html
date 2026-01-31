@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Initialize C-Suite | The Factory</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/onboarding.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="onboarding-container">
+        <!-- Left Side: Visual -->
+        <div class="visual-panel">
+            <div class="visual-content">
+                <div class="logo-large">
+                    <span class="logo-icon">🍌</span>
+                    <span class="logo-text">The Factory</span>
+                </div>
+                <div class="visual-art">
+                    <!-- CSS drawn neural network or similar abstract art can go here -->
+                    <div class="neural-network">
+                        <div class="node n1"></div>
+                        <div class="node n2"></div>
+                        <div class="node n3"></div>
+                        <div class="node n4"></div>
+                        <div class="connection c1"></div>
+                        <div class="connection c2"></div>
+                        <div class="connection c3"></div>
+                    </div>
+                </div>
+                <div class="visual-footer">
+                    <p>Intelligent C-Suite Systems</p>
+                    <p class="sub-text">Powered by Neural Core Technology</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Side: Form Wizard -->
+        <div class="form-panel">
+            <div class="form-header">
+                <h1>Initialize C-Suite</h1>
+                <div class="progress-bar-container">
+                    <div class="progress-steps">
+                        <div class="step active" data-step="1">
+                            <div class="step-circle">1</div>
+                            <span class="step-label">Identity</span>
+                        </div>
+                        <div class="step" data-step="2">
+                            <div class="step-circle">2</div>
+                            <span class="step-label">Vision</span>
+                        </div>
+                        <div class="step" data-step="3">
+                            <div class="step-circle">3</div>
+                            <span class="step-label">Configuration</span>
+                        </div>
+                        <div class="step" data-step="4">
+                            <div class="step-circle">4</div>
+                            <span class="step-label">Launch</span>
+                        </div>
+                    </div>
+                    <div class="progress-line">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-content">
+                <!-- Step 1: Identity -->
+                <div class="form-step active" id="step1">
+                    <h2>Creator Identity</h2>
+                    <p class="step-desc">Establish the primary human authority for the system.</p>
+                    <div class="input-group">
+                        <label>Full Name</label>
+                        <input type="text" id="creatorName" placeholder="e.g. Jane Doe">
+                    </div>
+                    <div class="input-group">
+                        <label>Role / Title</label>
+                        <input type="text" id="creatorRole" placeholder="e.g. Founder" value="Founder">
+                    </div>
+                    <div class="input-group">
+                        <label>Security Key</label>
+                        <input type="password" id="securityKey" placeholder="Create a master password">
+                    </div>
+                </div>
+
+                <!-- Step 2: Vision -->
+                <div class="form-step" id="step2">
+                    <h2>Company Vision</h2>
+                    <p class="step-desc">Define the core purpose for the CEO agent to propagate.</p>
+                    <div class="input-group">
+                        <label>Business Name</label>
+                        <input type="text" id="bizName" placeholder="e.g. Acme Corp">
+                    </div>
+                    <div class="input-group">
+                        <label>Mission Statement</label>
+                        <textarea id="bizMission" placeholder="What problem are you solving? (Max 300 chars)"
+                            rows="3"></textarea>
+                    </div>
+                    <div class="input-group">
+                        <label>Core Values</label>
+                        <input type="text" id="bizValues" placeholder="e.g. Innovation, Integrity, Speed">
+                    </div>
+                </div>
+
+                <!-- Step 3: Configuration -->
+                <div class="form-step" id="step3">
+                    <h2>System Configuration</h2>
+                    <p class="step-desc">Set operational parameters for the C-Suite agents.</p>
+                    <div class="input-group">
+                        <label>Operating Mode</label>
+                        <select id="opMode">
+                            <option value="aggressive">Aggressive Growth (High Risk)</option>
+                            <option value="balanced" selected>Balanced (Standard)</option>
+                            <option value="conservative">Conservative (Low Risk)</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>Initial Capital (Tokens)</label>
+                        <input type="number" id="initCapital" value="5000">
+                    </div>
+                </div>
+
+                <!-- Step 4: Launch -->
+                <div class="form-step" id="step4">
+                    <h2>Ready to Launch</h2>
+                    <p class="step-desc">Review your configuration and initialize the C-Suite.</p>
+                    <div class="summary-card">
+                        <div class="summary-row">
+                            <span>Creator</span>
+                            <span id="sumCreator">--</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Business</span>
+                            <span id="sumBiz">--</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Mode</span>
+                            <span id="sumMode">--</span>
+                        </div>
+                    </div>
+                    <div class="checklist">
+                        <div class="check-item"><span class="check-icon">✓</span> CEO Agent Ready</div>
+                        <div class="check-item"><span class="check-icon">✓</span> Data Uplink Secure</div>
+                        <div class="check-item"><span class="check-icon">✓</span> Governance Protocols Active</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-footer">
+                <button class="btn btn-secondary" id="prevBtn" disabled>Back</button>
+                <button class="btn btn-primary" id="nextBtn">Continue</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/onboarding.js"></script>
+</body>
+
+</html>
