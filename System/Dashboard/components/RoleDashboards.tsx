@@ -55,7 +55,32 @@ export const ChairmanDashboard = ({ onAgentClick }: DashboardProps) => {
                 </div>
             )}
 
-            <div className="col-8">
+            <div className="col-12">
+                <div className="card">
+                    <div className="card-header">
+                        <h3 className="card-title">Pending Approvals</h3>
+                        <span className="badge badge-warning">{PENDING_APPROVALS.length}</span>
+                    </div>
+                    <div className="card-body">
+                        <div className="approval-list" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem' }}>
+                            {PENDING_APPROVALS.map((item: any, idx: number) => (
+                                <div key={idx} className={`approval-item ${item.priority}`}>
+                                    <div className="approval-content">
+                                        <div className="approval-title">{item.title}</div>
+                                        <div className="approval-meta">From {item.from} • {item.time}</div>
+                                    </div>
+                                    <div className="approval-actions">
+                                        <button className="btn btn-icon btn-success">✓</button>
+                                        <button className="btn btn-icon btn-danger">✗</button>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="col-12">
                 <div className="card">
                     <div className="card-header">
                         <h3 className="card-title">Agent Status Grid</h3>
@@ -71,30 +96,6 @@ export const ChairmanDashboard = ({ onAgentClick }: DashboardProps) => {
                                         task={AGENT_STATUS[key].task}
                                         tokens={AGENT_STATUS[key].tokens}
                                     />
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div className="col-4">
-                <div className="card">
-                    <div className="card-header">
-                        <h3 className="card-title">Pending Approvals</h3>
-                        <span className="badge badge-warning">{PENDING_APPROVALS.length}</span>
-                    </div>
-                    <div className="card-body">
-                        <div className="approval-list">
-                            {PENDING_APPROVALS.map((item: any, idx: number) => (
-                                <div key={idx} className={`approval-item ${item.priority}`}>
-                                    <div className="approval-content">
-                                        <div className="approval-title">{item.title}</div>
-                                        <div className="approval-meta">From {item.from} • {item.time}</div>
-                                    </div>
-                                    <div className="approval-actions">
-                                        <button className="btn btn-icon btn-success">✓</button>
-                                        <button className="btn btn-icon btn-danger">✗</button>
-                                    </div>
                                 </div>
                             ))}
                         </div>
