@@ -6,58 +6,150 @@ This document tracks the completion status of the CEO OpenSpec template factory.
 
 **This is a TEMPLATE FACTORY, not a factory, not a product.**
 
+**Last Updated:** January 31, 2026 @ 10:44 AM EST
+
+---
+
+## Quick Stats
+
+| Metric | Count |
+|--------|-------|
+| **Total Files** | 124+ markdown files |
+| **Positions** | 9 C-suite agents |
+| **Commands** | 50+ across all agents |
+| **Architecture Docs** | 20 |
+| **Dashboard Wireframes** | 10 (Chairman + 9 positions) |
+
 ---
 
 ## Positions Status
 
 ### All 9 Positions Complete ✅
 
-| Position | Ethics | Commands | Memory | Logs | Status |
-|----------|--------|----------|--------|------|--------|
-| **CEO** | ✅ | 5 | ✅ | ✅ | Complete |
-| **CFO** | ✅ | 6 | ✅ | ✅ | Complete (+ payments) |
-| **CMO** | ✅ | 9 | ✅ | ✅ | Complete (deep dive) |
-| **COO** | ✅ | 4 | ✅ | ✅ | Complete (+ call center) |
-| **CIO** | ✅ | 6 | ✅ | ✅ | Complete (+ redundancy) |
-| **CLO** | ✅ | 5 | ✅ | ✅ | Complete (+ jurisdiction) |
-| **CPO** | ✅ | 5 | ✅ | ✅ | Complete (+ PRD) |
-| **CTO** | ✅ | SpecKit + 1 | ✅ | ✅ | Complete (+ backups) |
-| **EXA** | ✅ | 4 | ✅ | ✅ | Complete (no voting) |
-
-### Summary
-- **9 positions** fully defined
-- **45+ commands** across all agents
-- **Full governance** on all positions
+| Position | Ethics | Commands | Memory | Logs | Personality | Status |
+|----------|--------|----------|--------|------|-------------|--------|
+| **CEO** | ✅ | 6 | ✅ | ✅ | 9w8 ISFJ | Complete |
+| **CFO** | ✅ | 6 | ✅ | ✅ | 6w5 ISTJ | Complete |
+| **CMO** | ✅ | 9 | ✅ | ✅ | 3w2 ENFJ | Complete |
+| **COO** | ✅ | 5 | ✅ | ✅ | 8w9 ESTJ | Complete |
+| **CIO** | ✅ | 6 | ✅ | ✅ | 5w6 INTJ | Complete |
+| **CLO** | ✅ | 5 | ✅ | ✅ | 1w9 INFJ | Complete |
+| **CPO** | ✅ | 5 | ✅ | ✅ | 3w4 ENTJ | Complete |
+| **CTO** | ✅ | SpecKit + 1 | ✅ | ✅ | 5w6 INTP | Complete |
+| **EXA** | ✅ | 4 | ✅ | ✅ | 2w1 ESFJ | Complete (no vote) |
 
 ---
 
-## Architecture Documents ✅
+## Architecture Documents (20 files) ✅
 
 | Document | Status | Description |
 |----------|--------|-------------|
+| `agent-personalities.md` | ✅ NEW | Enneagram, MBTI, zodiac integration |
+| `chairman-dashboard.md` | ✅ | Full transparency dashboard |
+| `cloud-functions.md` | ✅ | GCP serverless architecture |
+| `collaboration.md` | ✅ | Inter-agent communication |
+| `dashboard.md` | ✅ | Base dashboard framework |
+| `github-actions.md` | ✅ | CI/CD and multi-repo orchestration |
+| `governance-protocols.md` | ✅ | GREENLIGHT / RED PHONE |
+| `kpi-scorecards.md` | ✅ NEW | McKinsey-aligned KPIs for all positions |
+| `legal-jurisdiction.md` | ✅ | US Federal, 50 states, international |
 | `logging.md` | ✅ | BigQuery append-only logging |
 | `messaging.md` | ✅ | Pub/Sub inter-agent protocol |
-| `observability.md` | ✅ | Monitoring and dashboards |
+| `observability.md` | ✅ | Monitoring and alerting |
 | `openrouter.md` | ✅ | LLM configuration and model selection |
-| `chairman-dashboard.md` | ✅ | Full transparency dashboard |
+| `personality-snippets.md` | ✅ NEW | Personality sections for ethics files |
+| `position-dashboards.md` | ✅ | All 9 position dashboard specs |
 | `revenue-account.md` | ✅ | Read-only bank access for agents |
-| `legal-jurisdiction.md` | ✅ | US Federal, 50 states, international |
-| `telegram-bot.md` | ✅ | Human-CEO communication |
+| `services-inventory.md` | ✅ NEW | 40+ services/APIs inventory |
 | `signal-bot.md` | ✅ | Encrypted communication template |
-| `github-actions.md` | ✅ | CI/CD and multi-repo orchestration |
+| `status-summary.md` | ✅ | This document |
+| `telegram-bot.md` | ✅ | Human-CEO communication |
 
 ---
 
-## Mission Documents ✅
+## Mission Documents (6 files) ✅
 
 | Document | Status | Description |
 |----------|--------|-------------|
 | `agent-governance.md` | ✅ | Universal agent mandate |
+| `elevator-pitch.md` | Template | Fill in on fork |
 | `jurisdictional-compliance.md` | ✅ | All-agent compliance requirements |
 | `mission-statement.md` | Template | Fill in on fork |
-| `values.md` | Template | Fill in on fork |
 | `objective.md` | Template | Fill in on fork |
-| `elevator-pitch.md` | Template | Fill in on fork |
+| `values.md` | Template | Fill in on fork |
+
+---
+
+## Dashboard Wireframes (10 wireframes) ✅ NEW
+
+| Dashboard | Pages | Key Metrics |
+|-----------|-------|-------------|
+| **Chairman** | 1 | All agents, RED PHONE, approvals |
+| **CEO** | 1 | Revenue, agents, decisions, mission |
+| **CFO** | 1 | Burn, runway, tokens, budgets |
+| **CMO** | 2 | Page 1: Acquisition (ROAS, CAC, CTR) / Page 2: Engagement |
+| **COO** | 1 | Tickets, CSAT, SLA, call center |
+| **CIO** | 1 | MCP servers, uptime, security |
+| **CLO** | 1 | Compliance, contracts, jurisdictions |
+| **CPO** | 1 | DAU, roadmap, PRDs, adoption |
+| **CTO** | 1 | Deploys, bugs, coverage, backups |
+| **EXA** | 1 | Emails, calls, calendar, routing |
+
+---
+
+## McKinsey-Aligned KPIs ✅ NEW
+
+Each position now has e-commerce focused KPIs:
+
+| Position | Primary KPIs |
+|----------|-------------|
+| CEO | Revenue Growth, CLV, CAC Payback, Mission Alignment |
+| CFO | Burn Rate, Runway, Revenue/Token, Budget Variance |
+| CMO | CAC, ROAS, Conversion Rate, CTR, Engagement, Virality |
+| COO | CSAT, NPS, First Response Time, SLA Compliance |
+| CIO | Uptime, MTTR, MTBF, Security Incidents |
+| CLO | Compliance Rate, Contract Cycle Time, Jurisdictions |
+| CPO | DAU/MAU, Feature Adoption, Retention, Churn |
+| CTO | Deploy Frequency, Lead Time, Test Coverage, Error Rate |
+| EXA | Response Time, Routing Accuracy, Human Satisfaction |
+
+---
+
+## Agent Personalities ✅ NEW
+
+Integrated from `Agent_Exec_Personality_Chart__Chairman___Cedric_.csv`:
+
+| Agent | Enneagram | MBTI | Voice |
+|-------|-----------|------|-------|
+| Chairman | 8w7 | ENTP/INTP | Fire Dragon intensity |
+| CEO | 9w8 | ISFJ | Diplomatic translator |
+| CFO | 6w5 | ISTJ | Skeptical guardian |
+| CIO | 5w6 | INTJ | Technical architect |
+| CLO | 1w9 | INFJ | Principled diplomat |
+| CMO | 3w2 | ENFJ | Charismatic achiever |
+| COO | 8w9 | ESTJ | Grounded commander |
+| CPO | 3w4 | ENTJ | Visionary achiever |
+| CTO | 5w6 | INTP | Deep technologist |
+| EXA | 2w1 | ESFJ | Helpful organizer |
+
+---
+
+## Services Inventory ✅ NEW
+
+40+ services documented across categories:
+
+| Category | Services |
+|----------|----------|
+| AI/LLM | OpenRouter, Anthropic, OpenAI, Google AI |
+| Cloud | GCP (BigQuery, Functions, Pub/Sub, etc.) |
+| Payments | Stripe |
+| Communication | Gmail, Twilio, Telegram, Signal, SendGrid |
+| Social | TikTok, Instagram, X, YouTube, LinkedIn |
+| Analytics | Google Analytics, Mixpanel, Datadog |
+| Business | QuickBooks, Google Calendar, Notion, GitHub |
+| Banking | Plaid (READ-ONLY), Mercury |
+| Content | Nano Banana, DALL-E, ElevenLabs |
+| Legal | DocuSign, Ironclad (Human signature only) |
 
 ---
 
@@ -68,84 +160,37 @@ This document tracks the completion status of the CEO OpenSpec template factory.
 - ✅ GREENLIGHT / RED PHONE protocols
 - ✅ Vote of No Confidence procedure
 - ✅ Human-in-the-loop for all external actions
-- ✅ High-risk domain flags (minors, healthcare, crypto, EU)
 - ✅ Jurisdictional compliance (US Federal, 50 states, international)
 - ✅ CLO as compliance authority
+- ✅ **No agent can sign contracts or make binding commitments**
 
 ### Transparency
 - ✅ BigQuery schemas for ALL logs (append-only)
-- ✅ Decision logs in BigQuery (not markdown)
-- ✅ Thinking logs in BigQuery
+- ✅ Decision logs in BigQuery
 - ✅ Token/cost tracking
 - ✅ Chairman dashboard specification
-- ✅ Model identification logging
+- ✅ Position-specific dashboards
 
 ### Budget & Cost Control
 - ✅ Seed capital tracking
 - ✅ Single credit card enforcement
 - ✅ Per-agent budget allocation
-- ✅ OpenRouter model selection (cost vs quality tiers)
+- ✅ OpenRouter model selection
 - ✅ CFO emergency pause capability
 
-### Infrastructure
-- ✅ CIO redundancy for all services
-- ✅ CTO backups for all data (3-2-1 rule)
-- ✅ Failover configurations
-- ✅ Disaster recovery plans
-
-### Communication
-- ✅ Single email (hello@company.com)
-- ✅ Single phone number
-- ✅ EXA routing to all C-suite
-- ✅ Telegram bot for Human communication
-- ✅ Signal bot template (encrypted)
-
-### Operations
-- ✅ COO call center with SLAs
-- ✅ Support ticket schema
-- ✅ Escalation paths to Product/Engineering
-
-### Marketing (CMO Deep Dive)
-- ✅ Brand kit creation
-- ✅ Asset pipeline (brief → publish)
-- ✅ Content moderation rules
-- ✅ Language policy by age tier
-- ✅ TikTok-specific commands
-- ✅ Logo generation workflow
-- ✅ Platform API specifications (TikTok, Instagram, X, YouTube, LinkedIn)
-
-### Finance
-- ✅ Stripe payment processing spec
-- ✅ Invoice generation
-- ✅ Expense categorization
-- ✅ Tax calculation integration
-- ✅ QuickBooks sync specification
-
-### Product
-- ✅ PRD template and command
-- ✅ One-pager workflow
-- ✅ Roadmap management
-- ✅ CTO handoff spec
-
-### EXA (Executive Assistant)
-- ✅ No voting rights on business/governance
-- ✅ PR spokesperson role
-- ✅ Email handling and routing
-- ✅ Phone handling and COO call center integration
-- ✅ Calendar management (read + request, not write)
-- ✅ Contact database
+### Onboarding (NEW)
+- ✅ CEO onboarding command (`ceo.onboard`)
+- ✅ 7-phase credential collection wizard
+- ✅ GCP Secret Manager integration spec
+- ✅ Human-only service signup enforcement
 
 ---
 
-## Factory Setup ✅
+## In Development (Separate Folder)
 
-`FACTORY_SETUP.md` is complete with:
-- Step-by-step spawning instructions
-- Placeholder replacement guide
-- Infrastructure setup checklist
-- Position responsibilities summary
-- Governance hierarchy
-- Go-live checklist
+| Item | Status | Notes |
+|------|--------|-------|
+| Onboarding App | In Progress | Separate folder, active development |
 
 ---
 
@@ -177,5 +222,5 @@ See `FACTORY_SETUP.md` for complete instructions.
 
 ---
 
-*Last Updated: Jan 31, 2024*
 *Status: SPECIFICATION COMPLETE*
+*Last Updated: January 31, 2026 @ 10:44 AM EST*
