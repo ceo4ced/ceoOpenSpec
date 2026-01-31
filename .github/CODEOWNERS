@@ -1,0 +1,47 @@
+# CODEOWNERS - Governance File Protection
+#
+# This file defines who can approve changes to governance files.
+# All governance files require human review and approval.
+# AI agents cannot modify these files.
+
+# ===========================================
+# BUSINESS-LEVEL GOVERNANCE (.mission/)
+# ===========================================
+# All mission files require owner approval
+/.mission/ @OWNER
+
+# ===========================================
+# POSITION-LEVEL ETHICS (.ethics/)
+# ===========================================
+# All ethics files require owner approval
+/CEO/.ethics/ @OWNER
+/CFO/.ethics/ @OWNER
+/CMO/.ethics/ @OWNER
+/COO/.ethics/ @OWNER
+/CIO/.ethics/ @OWNER
+/CLO/.ethics/ @OWNER
+/CPO/.ethics/ @OWNER
+/CTO/.ethics/ @OWNER
+
+# ===========================================
+# CTO CONSTITUTION (SpecKit)
+# ===========================================
+/CTO/.specify/memory/constitution.md @OWNER
+
+# ===========================================
+# THIS FILE
+# ===========================================
+# CODEOWNERS itself requires owner approval
+/.github/CODEOWNERS @OWNER
+
+# ===========================================
+# NOTES
+# ===========================================
+# @OWNER should be replaced with the actual GitHub username
+# of the business owner when the template is forked.
+#
+# Example after forking:
+# /.mission/ @cedricwilliams
+#
+# Multiple owners can be specified:
+# /.mission/ @owner1 @owner2
