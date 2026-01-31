@@ -6,18 +6,11 @@ import { notFound, useParams } from 'next/navigation';
 import ProfileSidebar from '@/components/ProfileSidebar';
 import {
     ChairmanDashboard,
-    CEODashboard,
-    CFODashboard,
-    CMODashboard,
-    COODashboard,
-    CIODashboard,
-    CLODashboard,
-    CPODashboard,
-    CTODashboard,
-    CXADashboard,
     MetricsGrid
 } from '@/components/RoleDashboards';
+import CSuiteDashboard from '@/components/CSuiteDashboard';
 import { AGENTS } from '@/lib/data';
+
 
 export default function RolePage() {
     const params = useParams();
@@ -42,19 +35,19 @@ export default function RolePage() {
 
     // Render logic
     const renderContent = () => {
-        switch (role) {
-            case 'chairman': return <ChairmanDashboard onAgentClick={handleAgentClick} />;
-            case 'ceo': return <CEODashboard onAgentClick={handleAgentClick} />;
-            case 'cfo': return <CFODashboard />;
-            case 'cmo': return <CMODashboard />;
-            case 'coo': return <COODashboard />;
-            case 'cio': return <CIODashboard />;
-            case 'clo': return <CLODashboard />;
-            case 'cpo': return <CPODashboard />;
-            case 'cto': return <CTODashboard />;
-            case 'cxa': return <CXADashboard />;
-            default: return <div className="p-4">Dashboard not found for {role}</div>;
+        // Chairman gets special dashboard
+        if (role === 'chairman') {
+            return <ChairmanDashboard onAgentClick={handleAgentClick} />;
         }
+
+        // All other C-Suite roles get the new dashboard with activity console
+        const cSuiteRoles = ['ceo', 'cfo', 'cmo', 'coo', 'cio', 'clo', 'cpo', 'cto', 'cxa'];
+        if (cSuiteRoles.includes(role)) {
+            return <CSuiteDashboard role={role} />;
+        }
+
+        // Fallback
+        return <div className="p-4">Dashboard not found for {role}</div>;
     };
 
     const agentName = AGENTS[role]?.name || 'Chairman';
@@ -75,7 +68,7 @@ export default function RolePage() {
                 </header>
 
                 <div className="dashboard-content" id="dashboardContent">
-                    {/* Common Metrics Row */}
+                    {/* Metrics for ALL roles */}
                     <MetricsGrid role={role} />
 
                     {/* Role Specific Content */}

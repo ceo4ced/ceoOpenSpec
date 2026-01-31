@@ -1,0 +1,193 @@
+.console {
+    background: #0a0e1a;
+    border: 1px solid #1e293b;
+    border-radius: 8px;
+    overflow: hidden;
+    font-family: 'SF Mono', 'Monaco', 'Consolas', monospace;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.consoleHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    border-bottom: 1px solid #334155;
+}
+
+.consoleTitle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.terminalIcon {
+    font-size: 1rem;
+    color: #3b82f6;
+}
+
+.consoleMeta {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.liveIndicator {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #10b981;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.6;
+    }
+}
+
+.consoleBody {
+    padding: 1rem;
+    max-height: 400px;
+    overflow-y: auto;
+    background: #0a0e1a;
+}
+
+.consoleBody::-webkit-scrollbar {
+    width: 8px;
+}
+
+.consoleBody::-webkit-scrollbar-track {
+    background: #0f172a;
+}
+
+.consoleBody::-webkit-scrollbar-thumb {
+    background: #334155;
+    border-radius: 4px;
+}
+
+.consoleBody::-webkit-scrollbar-thumb:hover {
+    background: #475569;
+}
+
+.activityLine {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.5rem 0;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: #cbd5e1;
+    border-bottom: 1px solid rgba(51, 65, 85, 0.3);
+}
+
+.activityLine:last-child {
+    border-bottom: none;
+}
+
+.activityLine[data-status="active"] .activityStatus {
+    color: #10b981;
+}
+
+.activityLine[data-status="idle"] .activityStatus {
+    color: #64748b;
+}
+
+.activityLine[data-status="error"] .activityStatus {
+    color: #ef4444;
+}
+
+.activityTimestamp {
+    flex-shrink: 0;
+    width: 60px;
+    font-size: 0.75rem;
+    color: #64748b;
+    font-weight: 500;
+}
+
+.activityStatus {
+    flex-shrink: 0;
+    font-size: 0.875rem;
+    line-height: 1.2;
+}
+
+.activityAgent {
+    flex-shrink: 0;
+    min-width: 50px;
+    font-weight: 700;
+    color: #3b82f6;
+}
+
+.activityText {
+    flex: 1;
+    color: #e2e8f0;
+}
+
+.activityDuration {
+    flex-shrink: 0;
+    font-size: 0.75rem;
+    color: #64748b;
+    font-style: italic;
+}
+
+.consoleFooter {
+    padding: 0.625rem 1rem;
+    background: #0f172a;
+    border-top: 1px solid #1e293b;
+}
+
+.footerText {
+    font-size: 0.75rem;
+    color: #64748b;
+}
+
+/* Animations */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.activityLine {
+    animation: slideIn 0.3s ease-out;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .consoleBody {
+        max-height: 300px;
+    }
+
+    .activityLine {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .activityTimestamp {
+        width: auto;
+    }
+
+    .activityAgent {
+        min-width: auto;
+    }
+}

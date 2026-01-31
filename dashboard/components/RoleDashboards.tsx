@@ -112,21 +112,86 @@ export const CEODashboard = ({ onAgentClick }: DashboardProps) => {
             <div className="col-8">
                 <div className="card">
                     <div className="card-header">
-                        <h3 className="card-title">C-Suite Status</h3>
+                        <h3 className="card-title">CEO Token Usage & Performance</h3>
+                        <span className="badge badge-success">Healthy</span>
                     </div>
                     <div className="card-body">
-                        <div className="agent-grid">
-                            {/* Show all agents except CEO */}
-                            {['chairman', 'cfo', 'cmo', 'coo', 'cio', 'clo', 'cpo', 'cto', 'cxa'].map(key => (
-                                <div key={key} onClick={() => onAgentClick && onAgentClick(key)}>
-                                    <AgentCard
-                                        id={key}
-                                        status={AGENT_STATUS[key].status}
-                                        task={AGENT_STATUS[key].task}
-                                        tokens={AGENT_STATUS[key].tokens}
-                                    />
+                        {/* Token Usage Section */}
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1.5rem', marginBottom: '2rem' }}>
+                            <div style={{ textAlign: 'center', padding: '1rem', background: 'var(--bg-tertiary)', borderRadius: '8px' }}>
+                                <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.5rem' }}>Today's Tokens</div>
+                                <div style={{ fontSize: '1.75rem', fontWeight: 700, color: 'var(--accent-blue)' }}>24.5K</div>
+                                <div style={{ fontSize: '0.75rem', color: 'var(--success)' }}>↓ 12% vs avg</div>
+                            </div>
+                            <div style={{ textAlign: 'center', padding: '1rem', background: 'var(--bg-tertiary)', borderRadius: '8px' }}>
+                                <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.5rem' }}>This Week</div>
+                                <div style={{ fontSize: '1.75rem', fontWeight: 700, color: 'var(--accent-gold)' }}>142K</div>
+                                <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>of 200K budget</div>
+                            </div>
+                            <div style={{ textAlign: 'center', padding: '1rem', background: 'var(--bg-tertiary)', borderRadius: '8px' }}>
+                                <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.5rem' }}>This Month</div>
+                                <div style={{ fontSize: '1.75rem', fontWeight: 700 }}>580K</div>
+                                <div style={{ fontSize: '0.75rem', color: 'var(--warning)' }}>72% of budget</div>
+                            </div>
+                        </div>
+
+                        {/* Model Performance Section */}
+                        <h4 style={{ fontSize: '0.875rem', marginBottom: '1rem', color: 'var(--text-muted)' }}>Model Performance</h4>
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                            <div>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+                                    <span>Task Success Rate</span>
+                                    <span style={{ fontWeight: 600, color: 'var(--success)' }}>94%</span>
                                 </div>
-                            ))}
+                                <div className="progress-bar"><div className="progress-fill success" style={{ width: '94%' }}></div></div>
+                            </div>
+                            <div>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+                                    <span>Response Quality</span>
+                                    <span style={{ fontWeight: 600, color: 'var(--success)' }}>91%</span>
+                                </div>
+                                <div className="progress-bar"><div className="progress-fill success" style={{ width: '91%' }}></div></div>
+                            </div>
+                            <div>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+                                    <span>Avg Response Time</span>
+                                    <span style={{ fontWeight: 600 }}>2.3s</span>
+                                </div>
+                                <div className="progress-bar"><div className="progress-fill success" style={{ width: '85%' }}></div></div>
+                            </div>
+                            <div>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+                                    <span>Context Efficiency</span>
+                                    <span style={{ fontWeight: 600, color: 'var(--warning)' }}>78%</span>
+                                </div>
+                                <div className="progress-bar"><div className="progress-fill warning" style={{ width: '78%' }}></div></div>
+                            </div>
+                        </div>
+
+                        {/* Recent Activity */}
+                        <h4 style={{ fontSize: '0.875rem', marginTop: '1.5rem', marginBottom: '1rem', color: 'var(--text-muted)' }}>Recent Tasks</h4>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                            <div style={{ padding: '0.75rem', background: 'var(--bg-tertiary)', borderRadius: '6px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                <div>
+                                    <div style={{ fontSize: '0.875rem' }}>Analyzed Q4 Financial Reports</div>
+                                    <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>2 min ago • 1,240 tokens</div>
+                                </div>
+                                <span className="badge badge-success">Complete</span>
+                            </div>
+                            <div style={{ padding: '0.75rem', background: 'var(--bg-tertiary)', borderRadius: '6px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                <div>
+                                    <div style={{ fontSize: '0.875rem' }}>Prepared Executive Summary</div>
+                                    <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>15 min ago • 2,100 tokens</div>
+                                </div>
+                                <span className="badge badge-success">Complete</span>
+                            </div>
+                            <div style={{ padding: '0.75rem', background: 'var(--bg-tertiary)', borderRadius: '6px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                <div>
+                                    <div style={{ fontSize: '0.875rem' }}>Reviewing Strategic Initiatives</div>
+                                    <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>In progress • 890 tokens</div>
+                                </div>
+                                <span className="badge badge-warning">Active</span>
+                            </div>
                         </div>
                     </div>
                 </div>
