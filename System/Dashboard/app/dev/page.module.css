@@ -1,161 +1,313 @@
-.dev-layout {
-    min-height: 100vh;
-    background-color: #0a0a0a;
-    color: #00ff41;
-    font-family: 'Courier New', Courier, monospace;
+/* ===== PROFESSIONAL COMMAND CENTER THEME ===== */
+:root {
+    --bg-app: #0f1115;
+    --bg-panel: #161920;
+    --bg-input: #0a0c10;
+
+    --border-subtle: #2d3340;
+    --border-focus: #4a5568;
+
+    --text-primary: #e2e8f0;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+
+    --accent-primary: #3b82f6;
+    /* Professional Blue */
+    --accent-success: #10b981;
+    /* Muted Green */
+    --accent-warning: #f59e0b;
+    /* Amber */
+    --accent-danger: #ef4444;
+
+    --font-mono: 'JetBrains Mono', 'SF Mono', 'Menlo', monospace;
+    --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
+.dev-container {
+    min-height: 100vh;
+    background-color: var(--bg-app);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    padding: 2rem;
+}
+
+/* Header System */
 .dev-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem;
-    background-color: #000;
-    border-bottom: 2px solid #00ff41;
+    border-bottom: 1px solid var(--border-subtle);
+    background: rgba(15, 17, 21, 0.8);
+    backdrop-filter: blur(8px);
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
 .dev-logo {
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    font-size: 1.5rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-}
-
-.dev-icon {
-    font-size: 1.5rem;
 }
 
 .dev-title {
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: #fff;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: var(--text-primary);
+    white-space: nowrap;
 }
 
-.back-to-app {
-    padding: 0.5rem 1rem;
-    background-color: #000;
-    color: #00ff41;
-    text-decoration: none;
-    border: 1px solid #00ff41;
-    border-radius: 4px;
-    transition: all 0.2s ease;
-    text-transform: uppercase;
-    font-size: 0.8rem;
-    letter-spacing: 1px;
+.dev-icon {
+    color: var(--text-muted);
 }
 
-.back-to-app:hover {
-    background-color: #00ff41;
-    color: #000;
-}
-
-.dev-container {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 2rem;
-}
 
 .dev-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 1.5rem;
 }
 
-.dev-section {
-    background-color: #0d0d0d;
-    border: 1px solid #333;
-    border-left: 4px solid #00ff41;
-    padding: 2rem;
-    box-shadow: 0 0 10px rgba(0, 255, 65, 0.1);
-}
-
-.dev-section.full-width {
-    grid-column: 1 / -1;
-}
-
-.section-title {
-    font-size: 1.25rem;
-    font-weight: 700;
-    margin: 0 0 0.5rem 0;
-    color: #fff;
-    text-transform: uppercase;
-    border-bottom: 1px dashed #333;
-    padding-bottom: 0.5rem;
-    margin-bottom: 1rem;
-}
-
-.section-description {
-    color: #888;
-    margin: 0 0 1.5rem 0;
-    font-size: 0.9rem;
-}
-
-.quick-links-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-    gap: 1rem;
-}
-
-.quick-link {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 1.5rem;
-    background-color: #111;
-    border: 1px solid #333;
-    text-decoration: none;
-    color: #00ff41;
-    transition: all 0.2s;
-    position: relative;
+/* ===== PANELS ===== */
+.dev-section,
+.factoryManager {
+    background: var(--bg-panel);
+    border: 1px solid var(--border-subtle);
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     overflow: hidden;
 }
 
-.quick-link::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background-color: #00ff41;
-    transform: scaleX(0);
-    transition: transform 0.3s ease;
-    transform-origin: left;
+/* Layout Assignments */
+.factoryManager {
+    grid-column: span 12;
+    margin-bottom: 1rem;
 }
 
-.quick-link:hover {
-    background-color: #1a1a1a;
-    box-shadow: 0 0 15px rgba(0, 255, 65, 0.2);
-    transform: translateY(-2px);
+.dev-section {
+    grid-column: span 6;
+    padding: 1.5rem;
 }
 
-.quick-link:hover::before {
-    transform: scaleX(1);
-}
-
-.link-icon {
-    font-size: 2.5rem;
-    filter: drop-shadow(0 0 5px rgba(0, 255, 65, 0.5));
-}
-
-.link-text {
-    font-size: 0.8rem;
+.section-title {
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
     font-weight: 600;
+    color: var(--text-muted);
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
 }
 
-@media (max-width: 768px) {
+.section-description {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+}
+
+/* ===== FACTORY MANAGER STYLES ===== */
+.panelHeader {
+    background: #1a1e26;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--border-subtle);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.statusBadge {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--accent-success);
+    padding: 2px 8px;
+    border-radius: 4px;
+    border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.factoryControls {
+    display: grid;
+    grid-template-columns: 350px 1fr;
+    border-top: 1px solid var(--border-subtle);
+}
+
+.controlPanel {
+    padding: 1.5rem;
+    background: rgba(0, 0, 0, 0.1);
+    border-right: 1px solid var(--border-subtle);
+}
+
+.monitorPanel {
+    padding: 0;
+}
+
+.controlTitle {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* FORM STYLES */
+.createForm {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.inputGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.inputGroup label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+.inputGroup input {
+    background: var(--bg-input);
+    border: 1px solid var(--border-subtle);
+    border-radius: 4px;
+    padding: 0.625rem;
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    transition: border-color 0.2s;
+}
+
+.inputGroup input:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 1px var(--accent-primary);
+}
+
+.actionButton {
+    background: var(--accent-primary);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-top: 0.5rem;
+}
+
+.actionButton:hover:not(:disabled) {
+    background: #2563eb;
+}
+
+.actionButton:disabled {
+    background: var(--border-subtle);
+    color: var(--text-muted);
+    cursor: not-allowed;
+}
+
+/* TABLE STYLES */
+.tableWrapper {
+    overflow-x: auto;
+}
+
+.factoryTable {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+}
+
+.factoryTable th {
+    text-align: left;
+    padding: 0.75rem 1.5rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    border-bottom: 1px solid var(--border-subtle);
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.factoryTable td {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--border-subtle);
+    color: var(--text-secondary);
+}
+
+.factoryTable tr:last-child td {
+    border-bottom: none;
+}
+
+.mono {
+    font-family: var(--font-mono);
+    color: var(--text-muted);
+    font-size: 0.8rem;
+}
+
+.highlight {
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+.statusDot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 8px;
+}
+
+.statusDot.development {
+    background: var(--accent-warning);
+}
+
+.statusDot.production {
+    background: var(--accent-success);
+}
+
+.repoLink {
+    color: var(--accent-primary);
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.repoLink:hover {
+    text-decoration: underline;
+}
+
+.loadingState,
+.emptyState {
+    padding: 3rem;
+    text-align: center;
+    color: var(--text-secondary);
+    font-style: italic;
+    font-size: 0.9rem;
+}
+
+@media (max-width: 1000px) {
     .dev-grid {
         grid-template-columns: 1fr;
     }
 
-    .quick-links-grid {
-        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    .dev-section {
+        grid-column: span 1;
+    }
+
+    .factoryControls {
+        grid-template-columns: 1fr;
+    }
+
+    .controlPanel {
+        border-right: none;
+        border-bottom: 1px solid var(--border-subtle);
     }
 }

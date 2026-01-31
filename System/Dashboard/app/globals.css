@@ -1162,3 +1162,15 @@ button {
         grid-template-columns: 1fr;
     }
 }
+
+/* Hide Next.js Dev Indicator ("N" logo) */
+nextjs-portal,
+#nextjs__container_errors_label,
+#nextjs__container_build_error_label,
+.nextjs-toast-errors-parent,
+[data-nextjs-toast-wrapper] {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}

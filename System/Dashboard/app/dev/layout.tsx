@@ -10,11 +10,8 @@ export default function DevLayout({
             <div className={styles['dev-header']}>
                 <div className={styles['dev-logo']}>
                     <span className={styles['dev-icon']}>⚙️</span>
-                    <span className={styles['dev-title']}>Developer Dashboard</span>
+                    <span className={styles['dev-title']}>SERVER DASHBOARD</span>
                 </div>
-                <a href="/chairman" className={styles['back-to-app']}>
-                    ← Back to Main App
-                </a>
             </div>
             {children}
         </div>

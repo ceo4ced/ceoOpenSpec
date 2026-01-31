@@ -2,8 +2,10 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
+
 import ExperienceLauncher from '../../components/ExperienceLauncher';
 import TestRunner from '../../components/TestRunner';
+import FactoryManager from '../../components/FactoryManager';
 import styles from './page.module.css';
 
 export default function DevDashboard() {
@@ -13,20 +15,23 @@ export default function DevDashboard() {
     return (
         <div className={styles['dev-container']}>
             <div className={styles['dev-grid']}>
+                {/* Factory Replication System */}
+                <FactoryManager />
+
                 {/* Experience Launcher Section */}
                 <section className={styles['dev-section']}>
-                    <h2 className={styles['section-title']}>&gt;&gt; EXPERIENCE_LAUNCHER</h2>
+                    <h2 className={styles['section-title']}>Experience Launcher</h2>
                     <p className={styles['section-description']}>
-                        [SYSTEM]: Initialize user scenarios. Select boot mode.
+                        Initialize user scenarios and select boot mode for testing.
                     </p>
                     <ExperienceLauncher />
                 </section>
 
                 {/* Test Runner Section */}
                 <section className={styles['dev-section']}>
-                    <h2 className={styles['section-title']}>&gt;&gt; SYSTEM_DIAGNOSTICS</h2>
+                    <h2 className={styles['section-title']}>System Diagnostics</h2>
                     <p className={styles['section-description']}>
-                        [SYSTEM]: Execute unit test protocols. Analyze coverage.
+                        Execute unit test protocols and analyze system coverage.
                     </p>
                     <TestRunner onResultsChange={setTestResults} />
                 </section>
