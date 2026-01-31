@@ -1,10 +1,19 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import Sidebar from './Sidebar';
 
 // Mock Next.js navigation
 jest.mock('next/navigation', () => ({
     usePathname: jest.fn(),
+}));
+
+// Mock data
+jest.mock('@/lib/data', () => ({
+    SYSTEM_STATUS: {
+        statusText: 'All Systems Operational',
+        color: '#10b981',
+        issueCount: 0
+    }
 }));
 
 const { usePathname } = require('next/navigation');
