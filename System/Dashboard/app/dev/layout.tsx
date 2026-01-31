@@ -1,16 +1,18 @@
+import styles from './page.module.css';
+
 export default function DevLayout({
     children,
 }: {
     children: React.ReactNode;
 }) {
     return (
-        <div className="dev-layout">
-            <div className="dev-header">
-                <div className="dev-logo">
-                    <span className="dev-icon">⚙️</span>
-                    <span className="dev-title">Developer Dashboard</span>
+        <div className={styles['dev-layout']}>
+            <div className={styles['dev-header']}>
+                <div className={styles['dev-logo']}>
+                    <span className={styles['dev-icon']}>⚙️</span>
+                    <span className={styles['dev-title']}>Developer Dashboard</span>
                 </div>
-                <a href="/chairman" className="back-to-app">
+                <a href="/chairman" className={styles['back-to-app']}>
                     ← Back to Main App
                 </a>
             </div>
