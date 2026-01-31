@@ -70,7 +70,7 @@ export default function RolePage() {
                     <div className="header-right">
                         <div className="last-updated" id="lastUpdated">Last Updated: Just now</div>
                         <button className="btn btn-secondary" onClick={() => window.location.reload()}>Refresh</button>
-                        <button className="btn btn-danger">🚨 RED PHONE</button>
+                        <button className="btn btn-danger" onClick={() => window.location.href = '/red-phone'}>🚨 RED PHONE</button>
                     </div>
                 </header>
 

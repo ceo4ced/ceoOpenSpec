@@ -3,9 +3,11 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { SYSTEM_STATUS } from '@/lib/data';
 
 export default function Sidebar() {
     const pathname = usePathname();
+    const status = SYSTEM_STATUS;
 
     // Check if path starts with /<role>
     const isActive = (role: string) => {
@@ -30,6 +32,10 @@ export default function Sidebar() {
                     <span className="nav-icon">👥</span>
                     <span>Agent Profiles</span>
                 </a>
+                <Link href="/corporate" className={`nav-item ${isActive('corporate')}`}>
+                    <span className="nav-icon">🏢</span>
+                    <span>Corporate</span>
+                </Link>
             </div>
 
             <div className="nav-section">
@@ -81,10 +87,23 @@ export default function Sidebar() {
             </div>
 
             <div className="sidebar-footer">
-                <div className="system-status">
-                    <span className="status-dot online"></span>
-                    <span>All Systems Operational</span>
-                </div>
+                <Link href="/logs" className="system-status" style={{ cursor: 'pointer', textDecoration: 'none' }}>
+                    <span className="status-dot" style={{ backgroundColor: status.color }}></span>
+                    <div>
+                        <span>{status.statusText}</span>
+                        {status.issueCount > 0 && (
+                            <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '2px' }}>
+                                {status.issueCount} issue{status.issueCount > 1 ? 's' : ''}
+                            </div>
+                        )}
+                    </div>
+                </Link>
+                {process.env.NODE_ENV === 'development' && (
+                    <Link href="/dev" className="dev-link">
+                        <span className="nav-icon">⚙️</span>
+                        <span>Dev Dashboard</span>
+                    </Link>
+                )}
             </div>
         </nav>
     );

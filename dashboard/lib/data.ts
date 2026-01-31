@@ -282,8 +282,18 @@ export const PENDING_APPROVALS = [
 ];
 
 export const RED_PHONE_ALERTS = [
-    { message: "Server latency spike detected in US-East region", severity: "warning" },
-    { message: "Unusual API activity pattern from IP range 192.168.x.x", severity: "critical" }
+    {
+        message: "Server latency spike detected in US-East region.",
+        severity: "warning",
+        timestamp: "2026-01-31T13:45:00Z",
+        source: "Infrastructure Monitor"
+    },
+    {
+        message: "Unusual API activity pattern from IP range 192.168.x.x.",
+        severity: "critical",
+        timestamp: "2026-01-31T13:50:00Z",
+        source: "Security Monitor"
+    }
 ];
 
 export const TABLE_DATA = {
@@ -316,3 +326,89 @@ export const TABLE_DATA = {
         { component: "Agent Core", tests: "250/250", coverage: "90%", status: "Passing" }
     ]
 };
+
+// System Status Types
+export type SystemSeverity = 'info' | 'warning' | 'error' | 'critical';
+export type SystemHealth = 'operational' | 'degraded' | 'critical';
+
+export interface SystemMessage {
+    id: string;
+    severity: SystemSeverity;
+    message: string;
+    timestamp: string;
+    source: string;
+    details?: string;
+}
+
+export interface SystemStatus {
+    health: SystemHealth;
+    statusText: string;
+    color: string;
+    issueCount: number;
+    messages: SystemMessage[];
+}
+
+// Calculate system status based on alerts and messages
+export function getSystemStatus(): SystemStatus {
+    const allMessages: SystemMessage[] = [
+        ...RED_PHONE_ALERTS.map((alert, idx) => ({
+            id: `alert-${idx}`,
+            severity: alert.severity as SystemSeverity,
+            message: alert.message,
+            timestamp: alert.timestamp,
+            source: alert.source,
+        })),
+        {
+            id: 'info-1',
+            severity: 'info' as SystemSeverity,
+            message: 'Daily backup completed successfully',
+            timestamp: '2026-01-31T06:00:00Z',
+            source: 'Backup Service'
+        },
+        {
+            id: 'info-2',
+            severity: 'info' as SystemSeverity,
+            message: 'Agent performance metrics updated',
+            timestamp: '2026-01-31T12:00:00Z',
+            source: 'Analytics Service'
+        }
+    ];
+
+    const hasCritical = allMessages.some(m => m.severity === 'critical');
+    const hasError = allMessages.some(m => m.severity === 'error');
+    const hasWarning = allMessages.some(m => m.severity === 'warning');
+
+    const issueCount = allMessages.filter(m =>
+        m.severity === 'critical' || m.severity === 'error' || m.severity === 'warning'
+    ).length;
+
+    let health: SystemHealth;
+    let statusText: string;
+    let color: string;
+
+    if (hasCritical || hasError) {
+        health = 'critical';
+        statusText = 'Critical Issues Detected';
+        color = '#ef4444';
+    } else if (hasWarning) {
+        health = 'degraded';
+        statusText = 'System Warnings Present';
+        color = '#f59e0b';
+    } else {
+        health = 'operational';
+        statusText = 'All Systems Operational';
+        color = '#10b981';
+    }
+
+    return {
+        health,
+        statusText,
+        color,
+        issueCount,
+        messages: allMessages.sort((a, b) =>
+            new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
+        )
+    };
+}
+
+export const SYSTEM_STATUS = getSystemStatus();

@@ -74,7 +74,7 @@ export default function Onboarding() {
         if (btn) btn.innerHTML = "Initializing...";
 
         setTimeout(() => {
-            router.push('/');
+            router.push('/chairman');
         }, 2000);
     };
 

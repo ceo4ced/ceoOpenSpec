@@ -1,0 +1,177 @@
+.test-runner {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.test-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.test-btn {
+    padding: 1rem 1.5rem;
+    background: #21262d;
+    border: 2px solid #30363d;
+    border-radius: 8px;
+    color: #f0f6fc;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.test-btn:hover:not(:disabled) {
+    background: #30363d;
+    transform: translateY(-1px);
+}
+
+.test-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.test-btn.all {
+    border-color: #58a6ff;
+}
+
+.test-btn.components {
+    border-color: #a371f7;
+}
+
+.test-btn.pages {
+    border-color: #3fb950;
+}
+
+.test-results {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    background: #21262d;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+}
+
+.results-summary h3,
+.coverage-section h3 {
+    margin: 0 0 1rem 0;
+    font-size: 1.1rem;
+    color: #f0f6fc;
+}
+
+.results-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    background: #161b22;
+    border-radius: 6px;
+    border: 2px solid #30363d;
+}
+
+.stat.passed {
+    border-color: #3fb950;
+}
+
+.stat.failed {
+    border-color: #f85149;
+}
+
+.stat.total {
+    border-color: #58a6ff;
+}
+
+.stat-value {
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.stat.passed .stat-value {
+    color: #3fb950;
+}
+
+.stat.failed .stat-value {
+    color: #f85149;
+}
+
+.stat.total .stat-value {
+    color: #58a6ff;
+}
+
+.stat-label {
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    color: #8b949e;
+    text-transform: uppercase;
+}
+
+.coverage-metrics {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.coverage-item {
+    display: grid;
+    grid-template-columns: 100px 1fr 60px;
+    align-items: center;
+    gap: 1rem;
+}
+
+.metric-label {
+    color: #8b949e;
+    font-size: 0.9rem;
+}
+
+.metric-bar {
+    height: 8px;
+    background: #161b22;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.metric-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #3fb950, #58a6ff);
+    transition: width 0.3s ease;
+}
+
+.metric-value {
+    text-align: right;
+    font-weight: 600;
+    color: #f0f6fc;
+}
+
+.test-commands {
+    padding: 1rem;
+    background: #161b22;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    line-height: 1.8;
+}
+
+.test-commands h4 {
+    margin: 0 0 0.75rem 0;
+    color: #f0f6fc;
+    font-size: 0.95rem;
+}
+
+.test-commands code {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    background: #0d1117;
+    border: 1px solid #30363d;
+    border-radius: 4px;
+    color: #79c0ff;
+    font-family: monospace;
+    font-size: 0.85rem;
+}

@@ -51,9 +51,9 @@ while ! nc -z localhost 3000; do
   fi
 done
 
-echo -e "${GREEN}✅ Server is UP! Opening dashboard...${NC}"
+echo -e "${GREEN}✅ Server is UP! Opening dev dashboard...${NC}"
 sleep 2 # Give it a moment to initialize fully
-open http://localhost:3000
+open http://localhost:3000/dev
 
 # Keep script running to maintain the server process
 wait $SERVER_PID

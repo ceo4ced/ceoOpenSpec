@@ -1,5 +1,6 @@
 
 import Sidebar from "@/components/Sidebar";
+import OverlaySuppressor from "@/components/OverlaySuppressor";
 
 export default function MainLayout({
     children,
@@ -8,6 +9,7 @@ export default function MainLayout({
 }>) {
     return (
         <div className="app-container">
+            <OverlaySuppressor />
             <Sidebar />
             {children}
         </div>

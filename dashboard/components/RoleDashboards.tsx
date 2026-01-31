@@ -23,6 +23,8 @@ export const MetricsGrid = ({ role }: { role: string }) => {
 
 // CHAIRMAN
 export const ChairmanDashboard = ({ onAgentClick }: DashboardProps) => {
+    const [expandedAlert, setExpandedAlert] = React.useState<number | null>(null);
+
     return (
         <div className="dashboard-grid">
             {RED_PHONE_ALERTS.length > 0 && (
@@ -30,12 +32,24 @@ export const ChairmanDashboard = ({ onAgentClick }: DashboardProps) => {
                     <div className="alerts-header">
                         <span>🚨</span>
                         <span>RED PHONE ALERTS</span>
+                        <a href="/red-phone" className="btn btn-secondary" style={{ marginLeft: 'auto' }}>
+                            View All Details →
+                        </a>
                     </div>
                     {RED_PHONE_ALERTS.map((alert: any, idx: number) => (
-                        <div className="alert-item" key={idx}>
+                        <div className="alert-item" key={idx} style={{ cursor: 'pointer' }} onClick={() => setExpandedAlert(expandedAlert === idx ? null : idx)}>
                             <div className="alert-priority"></div>
-                            <div className="alert-content">{alert.message}</div>
-                            <button className="btn btn-secondary">Acknowledge</button>
+                            <div className="alert-content">
+                                <div>{alert.message}</div>
+                                {expandedAlert === idx && (
+                                    <div style={{ marginTop: '1rem', padding: '1rem', background: 'var(--bg-tertiary)', borderRadius: '6px', fontSize: '0.875rem' }}>
+                                        <p><strong>Severity:</strong> {alert.severity === 'critical' ? '🔴 Critical' : '⚠️ Warning'}</p>
+                                        <p><strong>Impact:</strong> {alert.severity === 'critical' ? 'High - Service degradation' : 'Medium - Requires attention'}</p>
+                                        <p><strong>Action:</strong> Click "View All Details" for full emergency controls</p>
+                                    </div>
+                                )}
+                            </div>
+                            <button className="btn btn-secondary" onClick={(e) => { e.stopPropagation(); }}>Acknowledge</button>
                         </div>
                     ))}
                 </div>
