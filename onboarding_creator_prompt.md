@@ -1,5 +1,5 @@
 ```text
-You are Codex. Build a small program that assigns “personality archetypes” to a set of executive AI agents (CEO, CFO, COO, CTO, CPO, CMO, CIO, CLO, EXA, optional Chairman) based on a human’s onboarding flow.
+You are Codex. Build a small program that assigns “personality archetypes” to a set of executive AI agents (CEO, CFO, COO, CTO, CPO, CMO, CIO, CLO, CXA, optional Chairman) based on a human’s onboarding flow.
 
 CRITICAL PRIORITY
 1) Human ↔ CEO compatibility is the #1 objective.
@@ -92,7 +92,7 @@ ZODIAC (FOR FLAVOR ONLY)
 
 OUTPUT ROLES
 Default roles list:
-- CEO, CFO, COO, CTO, CPO, CMO, CIO, CLO, EXA
+- CEO, CFO, COO, CTO, CPO, CMO, CIO, CLO, CXA
 Optional:
 - Chairman (if human is not Chairman, Chairman is an agent too)
 

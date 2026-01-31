@@ -68,7 +68,7 @@ Response routed to originating agent
 |---------|-------------|-----------|
 | `/status` | Business status summary | CEO |
 | `/costs` | Token/spending report | CFO |
-| `/approve` | View pending approvals | EXA |
+| `/approve` | View pending approvals | CXA |
 | `/mcp` | MCP server status | CIO |
 | `/agents` | All agent status | CEO |
 | `/emergency` | Emergency pause | CFO (kills non-essential) |
@@ -98,7 +98,7 @@ Net: $667
 Agent Activity:
 • CEO: 5 decisions
 • CMO: 3 content pieces approved
-• EXA: 12 emails routed
+• CXA: 12 emails routed
 
 No action required.
 ```

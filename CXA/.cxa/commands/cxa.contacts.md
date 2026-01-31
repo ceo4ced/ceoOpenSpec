@@ -6,13 +6,13 @@ This command manages the contact database for the company.
 
 **Must read before execution:**
 1. `.mission/agent-governance.md`
-2. `EXA/.ethics/ethics.md`
+2. `CXA/.ethics/ethics.md`
 
 ---
 
 ## Overview
 
-EXA maintains the master contact database:
+CXA maintains the master contact database:
 - Known contacts with preferences
 - VIP identification
 - Routing preferences

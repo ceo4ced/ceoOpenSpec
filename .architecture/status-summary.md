@@ -36,7 +36,7 @@ This document tracks the completion status of the CEO OpenSpec template factory.
 | **CLO** | ✅ | 5 | ✅ | ✅ | 1w9 INFJ | Complete |
 | **CPO** | ✅ | 5 | ✅ | ✅ | 3w4 ENTJ | Complete |
 | **CTO** | ✅ | SpecKit + 1 | ✅ | ✅ | 5w6 INTP | Complete |
-| **EXA** | ✅ | 4 | ✅ | ✅ | 2w1 ESFJ | Complete (no vote) |
+| **CXA** | ✅ | 4 | ✅ | ✅ | 2w1 ESFJ | Complete (no vote) |
 
 ---
 
@@ -93,7 +93,7 @@ This document tracks the completion status of the CEO OpenSpec template factory.
 | **CLO** | 1 | Compliance, contracts, jurisdictions |
 | **CPO** | 1 | DAU, roadmap, PRDs, adoption |
 | **CTO** | 1 | Deploys, bugs, coverage, backups |
-| **EXA** | 1 | Emails, calls, calendar, routing |
+| **CXA** | 1 | Emails, calls, calendar, routing |
 
 ---
 
@@ -111,7 +111,7 @@ Each position now has e-commerce focused KPIs:
 | CLO | Compliance Rate, Contract Cycle Time, Jurisdictions |
 | CPO | DAU/MAU, Feature Adoption, Retention, Churn |
 | CTO | Deploy Frequency, Lead Time, Test Coverage, Error Rate |
-| EXA | Response Time, Routing Accuracy, Human Satisfaction |
+| CXA | Response Time, Routing Accuracy, Human Satisfaction |
 
 ---
 
@@ -130,7 +130,7 @@ Integrated from `Agent_Exec_Personality_Chart__Chairman___Cedric_.csv`:
 | COO | 8w9 | ESTJ | Grounded commander |
 | CPO | 3w4 | ENTJ | Visionary achiever |
 | CTO | 5w6 | INTP | Deep technologist |
-| EXA | 2w1 | ESFJ | Helpful organizer |
+| CXA | 2w1 | ESFJ | Helpful organizer |
 
 ---
 

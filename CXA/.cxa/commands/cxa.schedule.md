@@ -6,13 +6,13 @@ This command manages calendar scheduling for Human meetings with external partie
 
 **Must read before execution:**
 1. `.mission/agent-governance.md`
-2. `EXA/.ethics/ethics.md`
+2. `CXA/.ethics/ethics.md`
 
 ---
 
 ## Overview
 
-EXA has:
+CXA has:
 - **READ** access to Human's calendar
 - **REQUEST** ability (not direct write)
 - Human confirms ALL calendar changes
@@ -77,10 +77,10 @@ Send options to Human via Telegram
 Human selects slot
         │
         ▼
-EXA confirms with external party
+CXA confirms with external party
         │
         ▼
-EXA sends calendar invite
+CXA sends calendar invite
         │
         ▼
 Notify briefing agent to prepare

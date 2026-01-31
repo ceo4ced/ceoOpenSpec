@@ -87,7 +87,7 @@ CLO has authority to:
 | CLO | All of the above (enforcement authority) |
 | CPO | Product safety, accessibility, consumer protection |
 | CTO | Security standards, export controls, licensing |
-| EXA | Communication regulations, CAN-SPAM |
+| CXA | Communication regulations, CAN-SPAM |
 
 ---
 

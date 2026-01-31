@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C-Suite Command Center</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <span class="logo-icon">🍌</span>
+                    <span class="logo-text">C-Suite</span>
+                </div>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">NAVIGATION</div>
+                <a href="profiles.html" class="nav-item">
+                    <span class="nav-icon">👥</span>
+                    <span>Agent Profiles</span>
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">COMMAND CENTER</div>
+                <a href="#" class="nav-item active" data-page="chairman">
+                    <span class="nav-icon">👑</span>
+                    <span>Chairman</span>
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">C-SUITE</div>
+                <a href="#" class="nav-item" data-page="ceo">
+                    <span class="nav-icon">🎯</span>
+                    <span>CEO</span>
+                </a>
+                <a href="#" class="nav-item" data-page="cfo">
+                    <span class="nav-icon">💰</span>
+                    <span>CFO</span>
+                </a>
+                <a href="#" class="nav-item" data-page="cmo">
+                    <span class="nav-icon">📣</span>
+                    <span>CMO</span>
+                </a>
+                <a href="#" class="nav-item" data-page="coo">
+                    <span class="nav-icon">⚙️</span>
+                    <span>COO</span>
+                </a>
+                <a href="#" class="nav-item" data-page="cio">
+                    <span class="nav-icon">🔐</span>
+                    <span>CIO</span>
+                </a>
+                <a href="#" class="nav-item" data-page="clo">
+                    <span class="nav-icon">⚖️</span>
+                    <span>CLO</span>
+                </a>
+                <a href="#" class="nav-item" data-page="cpo">
+                    <span class="nav-icon">📦</span>
+                    <span>CPO</span>
+                </a>
+                <a href="#" class="nav-item" data-page="cto">
+                    <span class="nav-icon">💻</span>
+                    <span>CTO</span>
+                </a>
+                <a href="#" class="nav-item" data-page="cxa">
+                    <span class="nav-icon">📋</span>
+                    <span>CXA</span>
+                </a>
+            </div>
+
+            <div class="sidebar-footer">
+                <div class="system-status">
+                    <span class="status-dot online"></span>
+                    <span>All Systems Operational</span>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="main-header">
+                <div class="header-left">
+                    <h1 class="page-title" id="pageTitle">Chairman Dashboard</h1>
+                    <span class="last-updated" id="lastUpdated"></span>
+                </div>
+                <div class="header-right">
+                    <button class="btn btn-icon" id="refreshBtn">
+                        <span>🔄</span>
+                    </button>
+                    <button class="btn btn-danger" id="redPhoneBtn">
+                        <span>🚨</span>
+                        <span>RED PHONE</span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Dashboard Content -->
+            <div class="dashboard-content" id="dashboardContent">
+                <!-- Content will be loaded dynamically -->
+            </div>
+        </main>
+
+        <!-- Agent Profile Sidebar -->
+        <aside class="profile-sidebar" id="profileSidebar">
+            <div class="profile-header">
+                <button class="close-profile" id="closeProfile">×</button>
+                <div class="profile-image-container">
+                    <img src="" alt="Agent" class="profile-image" id="profileImage">
+                    <div class="profile-status online"></div>
+                </div>
+                <h2 class="profile-name" id="profileName">Agent Name</h2>
+                <p class="profile-role" id="profileRole">Role</p>
+            </div>
+
+            <div class="profile-content">
+                <div class="profile-section">
+                    <h3>Personality Profile</h3>
+                    <div class="personality-grid">
+                        <div class="personality-item">
+                            <span class="label">Enneagram</span>
+                            <span class="value" id="profileEnneagram">--</span>
+                        </div>
+                        <div class="personality-item">
+                            <span class="label">MBTI</span>
+                            <span class="value" id="profileMbti">--</span>
+                        </div>
+                        <div class="personality-item">
+                            <span class="label">Western</span>
+                            <span class="value" id="profileWestern">--</span>
+                        </div>
+                        <div class="personality-item">
+                            <span class="label">Chinese</span>
+                            <span class="value" id="profileChinese">--</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="profile-section">
+                    <h3>Communication Style</h3>
+                    <p class="comm-style" id="profileCommStyle">--</p>
+                </div>
+
+                <div class="profile-section">
+                    <h3>Sample Voice</h3>
+                    <blockquote class="sample-voice" id="profileSampleVoice">--</blockquote>
+                </div>
+
+                <div class="profile-section">
+                    <h3>Current Status</h3>
+                    <div class="status-info">
+                        <div class="status-row">
+                            <span>Current Task</span>
+                            <span id="profileCurrentTask">Idle</span>
+                        </div>
+                        <div class="status-row">
+                            <span>Tokens Today</span>
+                            <span id="profileTokens">0</span>
+                        </div>
+                        <div class="status-row">
+                            <span>Last Action</span>
+                            <span id="profileLastAction">--</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Red Phone Modal -->
+    <div class="modal" id="redPhoneModal">
+        <div class="modal-content red-phone-modal">
+            <div class="modal-header">
+                <h2>🚨 RED PHONE ALERT</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>This will immediately notify the Chairman of a critical issue.</p>
+                <textarea id="redPhoneMessage" placeholder="Describe the emergency..."></textarea>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary close-modal">Cancel</button>
+                <button class="btn btn-danger" id="sendRedPhone">Send Alert</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/data.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>

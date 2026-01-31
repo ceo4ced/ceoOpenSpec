@@ -1,4 +1,4 @@
-# EXA Routing Rules
+# CXA Routing Rules
 
 This file defines the routing logic for incoming communications.
 

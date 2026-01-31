@@ -146,7 +146,7 @@ async def handle_stripe_webhook(event: dict):
             'amount': invoice['amount_paid'] / 100,
             'paid_at': datetime.now()
         })
-        # Notify EXA to log revenue
+        # Notify CXA to log revenue
         await notify_exa_revenue(invoice)
         
     elif event_type == 'invoice.payment_failed':

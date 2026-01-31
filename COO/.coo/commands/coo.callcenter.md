@@ -7,14 +7,14 @@ The COO manages the call center / support operations.
 **Must read before execution:**
 1. `.mission/agent-governance.md`
 2. `COO/.ethics/ethics.md`
-3. `EXA/.exa/commands/exa.phone.md` (routing from EXA)
+3. `CXA/.exa/commands/exa.phone.md` (routing from CXA)
 
 ---
 
 ## Overview
 
 The COO runs the support call center that handles:
-- Customer support calls (transferred from EXA)
+- Customer support calls (transferred from CXA)
 - Support tickets
 - Customer inquiries
 - Issue resolution
@@ -36,14 +36,14 @@ coo.callcenter sla                  # View/update SLAs
 
 ## Call Center Architecture
 
-### Call Flow (from EXA)
+### Call Flow (from CXA)
 
 ```
-EXA receives call
+CXA receives call
       ↓
-EXA identifies as support request
+CXA identifies as support request
       ↓
-EXA transfers to COO Call Center
+CXA transfers to COO Call Center
       ↓
 Call answered (AI or human support)
       ↓
@@ -347,14 +347,14 @@ ORDER BY date DESC;
 
 ---
 
-## Integration with EXA
+## Integration with CXA
 
 ### Incoming Call Transfer
 
 ```python
 async def handle_transfer_from_exa(transfer: dict) -> dict:
     """
-    Handle incoming call transfer from EXA.
+    Handle incoming call transfer from CXA.
     """
     # Create ticket from call
     ticket = {

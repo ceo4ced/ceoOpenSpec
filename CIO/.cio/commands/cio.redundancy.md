@@ -50,8 +50,8 @@ Should have failover with <15 minute RTO.
 | BigQuery Logging | us-central1 | Multi-region dataset |
 | Cloud Functions | us-central1 | us-east1 |
 | Pub/Sub | GCP | Stored fallback queue |
-| Email (EXA) | Gmail API | SMTP fallback |
-| Phone (EXA) | Twilio | Backup provider |
+| Email (CXA) | Gmail API | SMTP fallback |
+| Phone (CXA) | Twilio | Backup provider |
 
 ### Tier 3: Standard (Recoverable)
 Can tolerate temporary outage, <4 hour RTO.

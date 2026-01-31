@@ -67,7 +67,7 @@ CIO/.ethics/ethics.md
 CLO/.ethics/ethics.md
 CPO/.ethics/ethics.md
 CTO/.ethics/ethics.md
-EXA/.ethics/ethics.md
+CXA/.ethics/ethics.md
 ```
 
 ⚠️ **These files are HUMAN-EDITABLE ONLY.** Agents cannot modify their own ethics.
@@ -148,7 +148,7 @@ ceoOpenSpec/
 ├── CLO/                      # Chief Legal Officer
 ├── CPO/                      # Chief Product Officer
 ├── CTO/                      # Chief Technology Officer
-├── EXA/                      # Executive Assistant
+├── CXA/                      # Executive Assistant
 │
 └── README.md                 # This file
 ```
@@ -167,7 +167,7 @@ ceoOpenSpec/
 | **CLO** | Legal, compliance | clo.jurisdiction, clo.contract |
 | **CPO** | Product, roadmap | cpo.prd, cpo.roadmap, cpo.onepager |
 | **CTO** | Engineering (SpecKit) | Existing SpecKit commands |
-| **EXA** | Communications, scheduling | exa.email, exa.phone, exa.schedule |
+| **CXA** | Communications, scheduling | cxa.email, cxa.phone, cxa.schedule |
 
 ---
 
@@ -187,8 +187,8 @@ The Chairman (Human owner) maintains control through:
 | Control | Managed By |
 |---------|------------|
 | Single credit card | CFO |
-| Single email (hello@company.com) | EXA |
-| Single phone number | EXA |
+| Single email (hello@company.com) | CXA |
+| Single phone number | CXA |
 | Single LLM router | CIO (OpenRouter) |
 | Single revenue account | Read-only for agents |
 
@@ -206,7 +206,7 @@ CEO (Strategy)
 ├── CLO (Legal)
 ├── CPO (Product)
 ├── CTO (Engineering)
-└── EXA (Communications - NO VOTE)
+└── CXA (Communications - NO VOTE)
 ```
 
 ### Compliance

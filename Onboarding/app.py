@@ -1,8 +1,15 @@
 import csv
+import hashlib
 import json
+import math
+import os
+import random
+import urllib.error
+import urllib.request
 from dataclasses import dataclass
 from datetime import date, datetime
 from typing import Dict, List, Optional, Tuple
+from PIL import Image, ImageDraw, ImageFont
 
 CULTURE_MODES = [
     "friendly_safe",
@@ -13,7 +20,7 @@ CULTURE_MODES = [
     "intentionally_toxic_simulation",
 ]
 
-ROLE_ORDER_DEFAULT = ["CEO", "CFO", "COO", "CTO", "CPO", "CMO", "CIO", "CLO", "EXA"]
+ROLE_ORDER_DEFAULT = ["CEO", "CFO", "COO", "CTO", "CPO", "CMO", "CIO", "CLO", "CXA"]
 WESTERN_ZODIAC_LIST = [
     "Aries",
     "Taurus",
@@ -91,6 +98,21 @@ class CultureProfile:
     quality_bar: str
 
 
+@dataclass(frozen=True)
+class CultureCard:
+    name: str
+    description: str
+    defaults: Dict[str, str]
+
+
+@dataclass(frozen=True)
+class SelectionConfig:
+    randomness_level: str
+    ceo_originality: str
+    rng: random.Random
+    seed_label: str
+
+
 @dataclass
 class Assignment:
     roles: Dict[str, PersonaBundle]
@@ -98,6 +120,136 @@ class Assignment:
     breakdown: Dict[str, Dict[str, float]]
     notes: Dict[str, str]
     image_prompts: Dict[str, str]
+    image_prompts: Dict[str, str]
+    backstories: Dict[str, str]
+    image_paths: Dict[str, str]
+
+
+RANDOMNESS_LEVELS = ["low", "medium", "high"]
+CEO_ORIGINALITY_LEVELS = ["subtle", "balanced", "bold"]
+
+CULTURE_CARDS = [
+    CultureCard(
+        "Calm Craft",
+        "steady pace, care-first, polish over rush",
+        {
+            "culture_mode": "friendly_safe",
+            "tolerance_for_conflict": "low",
+            "conflict_emphasis": "low",
+            "tolerance_for_burnout": "low",
+            "governance_level": "medium",
+            "innovation_level": "medium",
+            "risk_appetite": "low",
+            "hiring_bar": "medium",
+            "quality_bar": "high",
+        },
+    ),
+    CultureCard(
+        "Competitive Drive",
+        "goal-forward, crisp feedback, wins as fuel",
+        {
+            "culture_mode": "performance_driven",
+            "tolerance_for_conflict": "high",
+            "conflict_emphasis": "high",
+            "tolerance_for_burnout": "medium",
+            "governance_level": "medium",
+            "innovation_level": "medium",
+            "risk_appetite": "medium",
+            "hiring_bar": "high",
+            "quality_bar": "medium",
+        },
+    ),
+    CultureCard(
+        "Exploration Lab",
+        "experiments over certainty, fast learning loops",
+        {
+            "culture_mode": "high_velocity_startup",
+            "tolerance_for_conflict": "medium",
+            "conflict_emphasis": "medium",
+            "tolerance_for_burnout": "medium",
+            "governance_level": "low",
+            "innovation_level": "high",
+            "risk_appetite": "high",
+            "hiring_bar": "medium",
+            "quality_bar": "medium",
+        },
+    ),
+    CultureCard(
+        "Guarded Precision",
+        "high standards, guardrails, low variance",
+        {
+            "culture_mode": "regulated_enterprise",
+            "tolerance_for_conflict": "low",
+            "conflict_emphasis": "medium",
+            "tolerance_for_burnout": "low",
+            "governance_level": "high",
+            "innovation_level": "low",
+            "risk_appetite": "low",
+            "hiring_bar": "high",
+            "quality_bar": "high",
+        },
+    ),
+    CultureCard(
+        "Builder's Sprint",
+        "short iterations, bold bets, playful urgency",
+        {
+            "culture_mode": "high_velocity_startup",
+            "tolerance_for_conflict": "medium",
+            "conflict_emphasis": "high",
+            "tolerance_for_burnout": "high",
+            "governance_level": "low",
+            "innovation_level": "high",
+            "risk_appetite": "high",
+            "hiring_bar": "high",
+            "quality_bar": "medium",
+        },
+    ),
+    CultureCard(
+        "Resilient Core",
+        "steady trust, low drama, long-horizon focus",
+        {
+            "culture_mode": "friendly_safe",
+            "tolerance_for_conflict": "low",
+            "conflict_emphasis": "low",
+            "tolerance_for_burnout": "low",
+            "governance_level": "medium",
+            "innovation_level": "low",
+            "risk_appetite": "low",
+            "hiring_bar": "medium",
+            "quality_bar": "high",
+        },
+    ),
+    CultureCard(
+        "Operator's Rhythm",
+        "process-first, dependable tempo, measured risk",
+        {
+            "culture_mode": "regulated_enterprise",
+            "tolerance_for_conflict": "medium",
+            "conflict_emphasis": "medium",
+            "tolerance_for_burnout": "low",
+            "governance_level": "high",
+            "innovation_level": "low",
+            "risk_appetite": "low",
+            "hiring_bar": "medium",
+            "quality_bar": "high",
+        },
+    ),
+    CultureCard(
+        "Pressure Heat",
+        "simulated intensity, thin buffers, fast cycles",
+        {
+            "culture_mode": "high_turnover",
+            "tolerance_for_conflict": "high",
+            "conflict_emphasis": "high",
+            "tolerance_for_burnout": "high",
+            "governance_level": "low",
+            "innovation_level": "medium",
+            "risk_appetite": "high",
+            "hiring_bar": "medium",
+            "quality_bar": "medium",
+        },
+    ),
+]
 
 
 # ---------- Prompt helpers ----------
@@ -164,6 +316,49 @@ def prompt_western_zodiac(prompt: str, default: Optional[str] = None) -> str:
     options = WESTERN_ZODIAC_LIST + ["Unknown"]
     default_index = options.index(default) + 1 if default in options else None
     return prompt_choice(prompt, options, default_index=default_index)
+
+
+def default_index(options: List[str], default_value: Optional[str], fallback_index: int) -> int:
+    if default_value in options:
+        return options.index(default_value) + 1
+    return fallback_index
+
+
+def stable_seed(seed_material: str) -> int:
+    digest = hashlib.sha256(seed_material.encode("utf-8")).hexdigest()
+    return int(digest[:16], 16)
+
+
+def build_rng(seed_phrase: str) -> Tuple[random.Random, str]:
+    cleaned = seed_phrase.strip()
+    if cleaned:
+        seed_label = cleaned
+    else:
+        nonce = random.SystemRandom().randint(100000, 999999)
+        stamp = datetime.utcnow().strftime("%Y%m%d-%H%M%S")
+        seed_label = f"mix-{stamp}-{nonce}"
+    rng = random.Random(stable_seed(seed_label))
+    return rng, seed_label
+
+
+def selection_tuning(level: str) -> Tuple[float, float, int]:
+    tuning = {
+        "low": (0.0, 0.25, 1),
+        "medium": (0.06, 0.6, 3),
+        "high": (0.12, 1.0, 5),
+    }
+    return tuning.get(level, tuning["medium"])
+
+
+def softmax_sample(assignments: List[Assignment], rng: random.Random, temperature: float) -> Assignment:
+    if not assignments:
+        raise ValueError("No assignments available for sampling.")
+    if len(assignments) == 1:
+        return assignments[0]
+    max_score = max(a.score for a in assignments)
+    temp = max(temperature, 0.05)
+    weights = [math.exp((a.score - max_score) / temp) for a in assignments]
+    return rng.choices(assignments, weights=weights, k=1)[0]
 
 
 # ---------- Zodiac ----------
@@ -475,51 +670,68 @@ def synthesize_vibe_profile(axes: Dict[str, int], challenge_preference: str) -> 
     )
 
 
-def culture_profile_from_inputs() -> CultureProfile:
+def culture_profile_from_inputs(defaults: Optional[Dict[str, str]] = None) -> CultureProfile:
+    defaults = defaults or {}
     culture_mode = prompt_choice(
         "Choose the company culture mode",
         CULTURE_MODES,
-        default_index=1,
+        default_index=default_index(CULTURE_MODES, defaults.get("culture_mode"), 1),
     )
     tolerance_for_conflict = prompt_choice(
         "Conflict tolerance",
         ["low", "medium", "high"],
-        default_index=2,
+        default_index=default_index(
+            ["low", "medium", "high"], defaults.get("tolerance_for_conflict"), 2
+        ),
     )
     conflict_emphasis = prompt_choice(
         "Value of constructive conflict",
         ["low", "medium", "high"],
-        default_index=2,
+        default_index=default_index(
+            ["low", "medium", "high"], defaults.get("conflict_emphasis"), 2
+        ),
     )
     tolerance_for_burnout = prompt_choice(
         "Burnout tolerance",
         ["low", "medium", "high"],
-        default_index=2,
+        default_index=default_index(
+            ["low", "medium", "high"], defaults.get("tolerance_for_burnout"), 2
+        ),
     )
     governance_level = prompt_choice(
         "Governance level",
         ["low", "medium", "high"],
-        default_index=2,
+        default_index=default_index(
+            ["low", "medium", "high"], defaults.get("governance_level"), 2
+        ),
     )
     innovation_level = prompt_choice(
         "Innovation level",
         ["low", "medium", "high"],
-        default_index=2,
+        default_index=default_index(
+            ["low", "medium", "high"], defaults.get("innovation_level"), 2
+        ),
     )
     risk_appetite = prompt_choice(
         "Risk appetite",
         ["low", "medium", "high"],
-        default_index=2,
+        default_index=default_index(
+            ["low", "medium", "high"], defaults.get("risk_appetite"), 2
+        ),
     )
     hiring_bar = prompt_choice(
         "Hiring bar",
         ["low", "medium", "high"],
-        default_index=2,
+        default_index=default_index(
+            ["low", "medium", "high"], defaults.get("hiring_bar"), 2
+        ),
     )
     quality_bar = prompt_choice(
         "Quality bar",
         ["low", "medium", "high"],
-        default_index=2,
+        default_index=default_index(
+            ["low", "medium", "high"], defaults.get("quality_bar"), 2
+        ),
     )
 
     return CultureProfile(
@@ -1014,9 +1226,9 @@ def build_persona_library() -> Dict[str, List[PersonaBundle]]:
                 0.8,
             ),
         ],
-        "EXA": [
+        "CXA": [
             bundle(
-                "EXA-Anchor",
+                "CXA-Anchor",
                 9,
                 "9w1",
                 "ISFJ",
@@ -1026,7 +1238,7 @@ def build_persona_library() -> Dict[str, List[PersonaBundle]]:
                 0.8,
             ),
             bundle(
-                "EXA-Partner",
+                "CXA-Partner",
                 2,
                 "2w1",
                 "ESFJ",
@@ -1036,7 +1248,7 @@ def build_persona_library() -> Dict[str, List[PersonaBundle]]:
                 0.78,
             ),
             bundle(
-                "EXA-Organizer",
+                "CXA-Organizer",
                 6,
                 "6w5",
                 "ISTJ",
@@ -1140,6 +1352,21 @@ def construct_conflict_adjustment(
     return adjust
 
 
+def ceo_originality_bonus(compatibility: float, preference: str) -> float:
+    targets = {"subtle": 0.45, "balanced": 0.35, "bold": 0.25}
+    widths = {"subtle": 0.15, "balanced": 0.2, "bold": 0.25}
+    target = targets.get(preference, 0.35)
+    width = widths.get(preference, 0.2)
+    delta = abs(compatibility - target)
+    if delta >= width:
+        bonus = -0.05
+    else:
+        bonus = ((width - delta) / width) * 0.25
+    if compatibility < 0.1:
+        bonus -= 0.15
+    return bonus
+
+
 def human_ceo_compatibility(human: HumanProfile, candidate: PersonaBundle) -> float:
     mbti_target = human.top_mbti[0][0]
     enneagram_target = human.top_enneagram[0][0]
@@ -1154,6 +1381,7 @@ def score_assignment(
     human: HumanProfile,
     vibe: VibeProfile,
     human_position: str,
+    ceo_originality: str,
 ) -> Tuple[float, Dict[str, Dict[str, float]]]:
     breakdown: Dict[str, Dict[str, float]] = {}
     total = 0.0
@@ -1172,11 +1400,15 @@ def score_assignment(
             else:
                 role_breakdown["vibe_ok"] = -2.0
                 total -= 2.0
-            ceo_bonus = human_ceo_compatibility(human, bundle) * 2.5
+            compatibility = human_ceo_compatibility(human, bundle)
+            ceo_bonus = compatibility * 2.5
             role_breakdown["human_ceo_bonus"] = ceo_bonus
             total += ceo_bonus
+            originality_bonus = ceo_originality_bonus(compatibility, ceo_originality)
+            role_breakdown["ceo_originality_bonus"] = originality_bonus
+            total += originality_bonus
             if human_position == "Chairman":
-                chairman_bonus = human_ceo_compatibility(human, bundle) * 1.5
+                chairman_bonus = compatibility * 1.5
                 role_breakdown["chairman_ceo_bonus"] = chairman_bonus
                 total += chairman_bonus
 
@@ -1205,10 +1437,20 @@ def select_team(
     human: HumanProfile,
     vibe: VibeProfile,
     human_position: str,
+    selection: Optional[SelectionConfig] = None,
     beam_width: int = 8,
 ) -> Assignment:
+    if selection is None:
+        selection = SelectionConfig(
+            randomness_level="low",
+            ceo_originality="balanced",
+            rng=random.Random(0),
+            seed_label="default",
+        )
+    jitter, temperature, pool_size = selection_tuning(selection.randomness_level)
+    rng = selection.rng
     beam: List[Assignment] = [
-        Assignment(roles={}, score=0.0, breakdown={}, notes={}, image_prompts={})
+        Assignment(roles={}, score=0.0, breakdown={}, notes={}, image_prompts={}, backstories={})
     ]
 
     for role in roles:
@@ -1224,9 +1466,17 @@ def select_team(
                 next_roles = dict(assignment.roles)
                 next_roles[role] = candidate
                 total_score, breakdown = score_assignment(
-                    next_roles, culture, human, vibe, human_position
+                    next_roles, culture, human, vibe, human_position, selection.ceo_originality
                 )
-                note = build_why_note(role, candidate, culture, vibe, human, human_position)
+                note = build_why_note(
+                    role,
+                    candidate,
+                    culture,
+                    vibe,
+                    human,
+                    human_position,
+                    selection.ceo_originality,
+                )
                 notes = dict(assignment.notes)
                 notes[role] = note
                 new_beam.append(
@@ -1236,12 +1486,27 @@ def select_team(
                         breakdown=breakdown,
                         notes=notes,
                         image_prompts=assignment.image_prompts,
+                        backstories=assignment.backstories,
                     )
                 )
-        new_beam.sort(key=lambda a: (a.score, a.roles.get(role).persona_id), reverse=True)
+        if jitter > 0:
+            new_beam.sort(
+                key=lambda a: (
+                    a.score + rng.uniform(-jitter, jitter),
+                    a.roles.get(role).persona_id,
+                ),
+                reverse=True,
+            )
+        else:
+            new_beam.sort(
+                key=lambda a: (a.score, a.roles.get(role).persona_id), reverse=True
+            )
         beam = new_beam[:beam_width]
 
-    return beam[0]
+    if pool_size <= 1 or len(beam) <= 1:
+        return beam[0]
+    pool = beam[: min(pool_size, len(beam))]
+    return softmax_sample(pool, rng, temperature)
 
 
 def build_why_note(
@@ -1251,6 +1516,7 @@ def build_why_note(
     vibe: VibeProfile,
     human: HumanProfile,
     human_position: str,
+    ceo_originality: str,
 ) -> str:
     parts = []
     parts.append(f"role fit {candidate.role_fit_weight:.2f}")
@@ -1260,7 +1526,9 @@ def build_why_note(
     if role == "CEO":
         _, vibe_score = ceo_vibe_match_score(candidate, vibe)
         parts.append(f"vibe score {vibe_score:.2f}")
-        parts.append(f"human match {human_ceo_compatibility(human, candidate):.2f}")
+        compatibility = human_ceo_compatibility(human, candidate)
+        parts.append(f"human match {compatibility:.2f}")
+        parts.append(f"originality {ceo_originality}")
         if human_position == "Chairman":
             parts.append("chairman priority")
     if "integrator" in candidate.trait_tags:
@@ -1312,7 +1580,16 @@ def build_manual_assignment(
         roles_map[role] = bundle
         notes[role] = note
 
-    return Assignment(roles=roles_map, score=0.0, breakdown={}, notes=notes, image_prompts={})
+    return Assignment(
+        roles=roles_map,
+        score=0.0,
+        breakdown={},
+        notes=notes,
+        image_prompts={},
+        image_prompts={},
+        backstories={},
+        image_paths={},
+    )
 
 
 def build_default_image_prompt(role: str, bundle: Optional[PersonaBundle]) -> str:
@@ -1383,6 +1660,196 @@ def collect_image_prompts(roles: List[str], assignment: Assignment) -> Dict[str,
     return prompts
 
 
+def generate_placeholder_image(role: str, output_path: str) -> None:
+    # Create a simple colored placeholder with text
+    size = (400, 400)
+    colors = {
+        "CEO": "#3b82f6", "CFO": "#10b981", "CMO": "#ec4899",
+        "COO": "#f97316", "CIO": "#06b6d4", "CLO": "#f59e0b",
+        "CPO": "#8b5cf6", "CTO": "#3b82f6", "CXA": "#f97316",
+        "Chairman": "#fbbf24"
+    }
+    color = colors.get(role, "#6b7280")
+    
+    img = Image.new('RGB', size, color=color)
+    draw = ImageDraw.Draw(img)
+    
+    # Try to load a font, fallback to default
+    try:
+        font = ImageFont.truetype("Arial.ttf", 60)
+    except IOError:
+        font = ImageFont.load_default()
+        
+    text = role
+    bbox = draw.textbbox((0, 0), text, font=font)
+    text_w = bbox[2] - bbox[0]
+    text_h = bbox[3] - bbox[1]
+    
+    x = (size[0] - text_w) / 2
+    y = (size[1] - text_h) / 2
+    
+    draw.text((x, y), text, fill="white", font=font)
+    img.save(output_path)
+    print(f"Generated placeholder for {role} at {output_path}")
+
+
+def collect_image_paths(roles: List[str]) -> Dict[str, str]:
+    paths: Dict[str, str] = {}
+    print("\nStep 7b: Image Selection")
+    print("For each role, you can use a generated placeholder or provide a path to your own image.")
+    
+    images_dir = "images_out"
+    if not os.path.exists(images_dir):
+        os.makedirs(images_dir)
+        
+    for role in roles:
+        print(f"\n[{role}]")
+        choice = prompt_choice(
+            f"Image for {role}",
+            ["Generate Placeholder", "Provide Custom Path"],
+            default_index=1
+        )
+        
+        if choice == "Generate Placeholder":
+            filename = f"{role.lower()}.png"
+            out_path = os.path.join(images_dir, filename)
+            generate_placeholder_image(role, out_path)
+            paths[role] = os.path.abspath(out_path)
+        else:
+            while True:
+                custom_path = prompt_text("Enter absolute path to image file")
+                # Remove quotes if user dragged file
+                custom_path = custom_path.strip("'\"")
+                if os.path.exists(custom_path):
+                    paths[role] = os.path.abspath(custom_path)
+                    break
+                print("File not found. Please try again.")
+                
+    return paths
+
+
+def culture_summary(culture: CultureProfile) -> str:
+    return (
+        f"mode={culture.culture_mode}; conflict_tolerance={culture.tolerance_for_conflict}; "
+        f"conflict_emphasis={culture.conflict_emphasis}; burnout_tolerance={culture.tolerance_for_burnout}; "
+        f"governance={culture.governance_level}; innovation={culture.innovation_level}; "
+        f"risk_appetite={culture.risk_appetite}; hiring_bar={culture.hiring_bar}; quality_bar={culture.quality_bar}"
+    )
+
+
+def openrouter_request(
+    api_key: str,
+    model: str,
+    messages: List[Dict[str, str]],
+    temperature: float,
+    max_tokens: int,
+    timeout: int,
+) -> str:
+    url = "https://openrouter.ai/api/v1/chat/completions"
+    headers = {
+        "Authorization": f"Bearer {api_key}",
+        "Content-Type": "application/json",
+    }
+    referer = os.getenv("OPENROUTER_REFERER")
+    title = os.getenv("OPENROUTER_TITLE")
+    if referer:
+        headers["HTTP-Referer"] = referer
+    if title:
+        headers["X-Title"] = title
+    payload = {
+        "model": model,
+        "messages": messages,
+        "temperature": temperature,
+        "max_tokens": max_tokens,
+    }
+    request = urllib.request.Request(
+        url, data=json.dumps(payload).encode("utf-8"), headers=headers
+    )
+    with urllib.request.urlopen(request, timeout=timeout) as response:
+        data = json.loads(response.read().decode("utf-8"))
+    if "choices" not in data or not data["choices"]:
+        raise ValueError(f"Unexpected OpenRouter response: {data}")
+    return data["choices"][0]["message"]["content"].strip()
+
+
+def load_env_file(path: str) -> None:
+    if not os.path.exists(path):
+        return
+    with open(path, "r") as handle:
+        for raw in handle:
+            line = raw.strip()
+            if not line or line.startswith("#") or "=" not in line:
+                continue
+            key, value = line.split("=", 1)
+            key = key.strip()
+            value = value.strip().strip("'").strip('"')
+            if key and key not in os.environ:
+                os.environ[key] = value
+
+
+def build_backstory_messages(
+    role: str,
+    bundle: PersonaBundle,
+    culture: CultureProfile,
+    vibe: VibeProfile,
+    selection: SelectionConfig,
+) -> List[Dict[str, str]]:
+    system = (
+        "You generate short, abstract executive backstories for a factory template (not a factory). "
+        "Stay generic: no company names, no industries, no locations, and no real people. "
+        "Avoid protected demographics. Keep compatibility with the CEO but preserve originality. "
+        "Output a single paragraph, 3 sentences, 60-90 words."
+    )
+    user = (
+        f"Role: {role}\n"
+        f"Persona ID: {bundle.persona_id}\n"
+        f"MBTI: {bundle.mbti}\n"
+        f"Enneagram: {bundle.enneagram_core} ({bundle.wing})\n"
+        f"Tags: {', '.join(bundle.trait_tags) if bundle.trait_tags else 'none'}\n"
+        f"Culture: {culture_summary(culture)}\n"
+        f"CEO vibe tags: {', '.join(vibe.tags)}\n"
+        f"Originality bias: {selection.ceo_originality}\n"
+        f"Seed label: {selection.seed_label}"
+    )
+    return [{"role": "system", "content": system}, {"role": "user", "content": user}]
+
+
+def collect_backstories(
+    roles: List[str],
+    assignment: Assignment,
+    culture: CultureProfile,
+    vibe: VibeProfile,
+    selection: SelectionConfig,
+) -> Dict[str, str]:
+    env_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".env"))
+    load_env_file(env_path)
+    api_key = os.getenv("OPENROUTER_API_KEY", "").strip()
+    default_model = os.getenv("OPENROUTER_MODEL", "mistralai/mistral-7b-instruct")
+    print("\nStep 8: Backstory generation (OpenRouter required)")
+    if not api_key:
+        raise RuntimeError(
+            "OPENROUTER_API_KEY is not set. Backstory generation requires OpenRouter."
+        )
+    backstories: Dict[str, str] = {}
+    model = prompt_text("OpenRouter model", default=default_model)
+
+    for role in roles:
+        bundle = assignment.roles.get(role)
+        if bundle is None:
+            continue
+        messages = build_backstory_messages(role, bundle, culture, vibe, selection)
+        backstory = openrouter_request(
+            api_key=api_key,
+            model=model,
+            messages=messages,
+            temperature=0.6,
+            max_tokens=180,
+            timeout=20,
+        )
+        backstories[role] = backstory
+    return backstories
+
+
 # ---------- Reporting ----------
 
 def print_role_table(assignment: Assignment) -> None:
@@ -1420,10 +1887,12 @@ def write_csv(path: str, assignment: Assignment) -> None:
                 "Enneagram",
                 "Wing",
                 "MBTI",
-                "WesternZodiac",
-                "ChineseZodiac",
+                "Western Zodiac",
+                "Chinese Zodiac",
                 "Notes",
                 "ImagePrompt",
+                "Backstory",
+                "ImagePath",
             ]
         )
         for role, bundle in assignment.roles.items():
@@ -1437,6 +1906,8 @@ def write_csv(path: str, assignment: Assignment) -> None:
                     bundle.chinese_zodiac,
                     assignment.notes.get(role, ""),
                     assignment.image_prompts.get(role, ""),
+                    assignment.backstories.get(role, ""),
+                    assignment.image_paths.get(role, ""),
                 ]
             )
 
@@ -1461,6 +1932,48 @@ def print_debug_json(assignment: Assignment) -> None:
 
 
 # ---------- Onboarding flow ----------
+
+def prompt_selection_config() -> SelectionConfig:
+    print("Step 0: Template variation (abstract options only)")
+    randomness_level = prompt_choice(
+        "How much randomness should the template allow?",
+        RANDOMNESS_LEVELS,
+        default_index=2,
+    )
+    ceo_originality = prompt_choice(
+        "CEO originality bias (compatible but original)",
+        CEO_ORIGINALITY_LEVELS,
+        default_index=2,
+    )
+    seed_phrase = prompt_text(
+        "Seed phrase (optional; leave blank for a fresh mix each run)",
+        default="",
+    )
+    rng, seed_label = build_rng(seed_phrase)
+    print(f"Variation seed: {seed_label}")
+    return SelectionConfig(
+        randomness_level=randomness_level,
+        ceo_originality=ceo_originality,
+        rng=rng,
+        seed_label=seed_label,
+    )
+
+
+def prompt_culture_card(rng: random.Random) -> Optional[CultureCard]:
+    print("\nCulture deck: pick a card, reroll, or go custom (abstract signals only).")
+    while True:
+        deck = rng.sample(CULTURE_CARDS, k=min(3, len(CULTURE_CARDS)))
+        options = [f"{card.name} — {card.description}" for card in deck]
+        options.extend(["Reroll deck", "Custom inputs"])
+        choice = prompt_choice("Choose a culture card", options, default_index=1)
+        if choice == "Reroll deck":
+            continue
+        if choice == "Custom inputs":
+            return None
+        idx = options.index(choice)
+        if idx < len(deck):
+            return deck[idx]
+
 
 def ask_ceo_vibe_questions() -> VibeProfile:
     axes = {
@@ -1498,28 +2011,34 @@ def ask_birthdate() -> Tuple[date, str]:
 
 def main() -> None:
     print("Executive AI Agent Personality Onboarding")
-    print("Step 0: Identify your position")
+    selection = prompt_selection_config()
+    print("\nStep 1: Identify your position")
     human_position = prompt_choice(
         "Are you the Chairman, CEO, or other?",
         ["Chairman", "CEO", "Other"],
         default_index=1,
     )
 
-    print("\nStep 1: CEO vibe questions (primary driver)")
+    print("\nStep 2: CEO vibe questions (primary driver)")
     vibe = ask_ceo_vibe_questions()
 
-    print("\nStep 2: Company culture and org style")
-    culture = culture_profile_from_inputs()
+    print("\nStep 3: Company culture and org style")
+    card = prompt_culture_card(selection.rng)
+    if card:
+        print(f"Selected culture card: {card.name} — {card.description}")
+        culture = culture_profile_from_inputs(defaults=card.defaults)
+    else:
+        culture = culture_profile_from_inputs()
     if culture.culture_mode == "intentionally_toxic_simulation":
         print(
             "Note: This mode is treated as a roleplay intensity setting only. "
             "No real-world harmful practices are recommended."
         )
 
-    print("\nBirthdate for zodiac (flavor only)")
+    print("\nStep 4: Birthdate for zodiac (flavor only)")
     birth_date, _ = ask_birthdate()
 
-    print("\nStep 3: Human personality inference")
+    print("\nStep 5: Human personality inference")
     top_mbti, raw_mbti_scores = infer_mbti()
     top_enneagram, raw_enneagram_scores = infer_enneagram()
 
@@ -1550,7 +2069,9 @@ def main() -> None:
         roles.append("Chairman")
 
     library = build_persona_library()
-    assignment = select_team(roles, library, culture, human_profile, vibe, human_position)
+    assignment = select_team(
+        roles, library, culture, human_profile, vibe, human_position, selection=selection
+    )
 
     print("\nHuman profile summary")
     print_human_profile(human_profile)
@@ -1564,7 +2085,7 @@ def main() -> None:
 
     print_debug_json(assignment)
 
-    print("\nStep 4: Choose how to create the CSV")
+    print("\nStep 6: Choose how to create the CSV")
     creation_mode = prompt_choice(
         "Select a CSV creation mode",
         ["use recommended", "edit recommended", "manual from scratch"],
@@ -1584,10 +2105,17 @@ def main() -> None:
     if creation_mode == "manual from scratch":
         print("\nNotes: Manual entries skip scoring and debug output.")
 
-    print("\nStep 5: Image prompts for each role (no images generated)")
+    print("\nStep 7: Image prompts for each role (no images generated)")
+    print("\nStep 7a: Image prompts for each role")
     assignment.image_prompts = collect_image_prompts(roles, assignment)
+    
+    assignment.image_paths = collect_image_paths(roles)
 
-    print("\nStep 6: Create the CSV artifact")
+    assignment.backstories = collect_backstories(
+        roles, assignment, culture, vibe, selection
+    )
+
+    print("\nStep 9: Create the CSV artifact")
     csv_path = prompt_text("CSV output path", default="agent_personality_chart.csv")
     while True:
         confirm = prompt_choice(
@@ -1600,6 +2128,33 @@ def main() -> None:
         print("CSV creation is required to finish the onboarding.")
     write_csv(csv_path, assignment)
     print(f"\nCSV written to {csv_path}")
+    
+    # Dashboard Integration
+    print("\nStep 10: Dashboard Integration")
+    sync_choice = prompt_choice(
+        "Sync these agents and images to the Dashboard now?",
+        ["yes", "no"],
+        default_index=1
+    )
+    
+    if sync_choice == "yes":
+        import subprocess
+        script_path = os.path.join("scripts", "sync_dashboard.py")
+        if not os.path.exists(script_path):
+            # Fallback for relative path from Onboarding dir
+            script_path = os.path.join("..", "scripts", "sync_dashboard.py")
+            
+        if os.path.exists(script_path):
+            print(f"Running sync script on {csv_path}...")
+            try:
+                subprocess.run(["python3", script_path, csv_path], check=True)
+                print("Dashboard sync complete!")
+            except subprocess.CalledProcessError as e:
+                print(f"Sync failed: {e}")
+            except Exception as e:
+                print(f"Error running sync: {e}")
+        else:
+            print(f"Sync script not found at {script_path}")
 
 
 if __name__ == "__main__":

@@ -6,8 +6,8 @@ This command handles all incoming phone calls through the single company phone n
 
 **Must read before execution:**
 1. `.mission/agent-governance.md`
-2. `EXA/.ethics/ethics.md`
-3. `EXA/.exa/memory/routing.md`
+2. `CXA/.ethics/ethics.md`
+3. `CXA/.exa/memory/routing.md`
 
 ---
 
@@ -16,7 +16,7 @@ This command handles all incoming phone calls through the single company phone n
 Single company phone: `+1-XXX-XXX-XXXX`
 
 - ALL calls come through this number
-- EXA answers or voicemail captures
+- CXA answers or voicemail captures
 - Calls routed to COO call center or scheduled callbacks
 - ALL calls logged to BigQuery
 

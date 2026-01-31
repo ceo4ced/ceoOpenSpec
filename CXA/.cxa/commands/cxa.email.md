@@ -6,8 +6,8 @@ This command handles all incoming and outgoing email through the single company 
 
 **Must read before execution:**
 1. `.mission/agent-governance.md`
-2. `EXA/.ethics/ethics.md`
-3. `EXA/.exa/memory/routing.md`
+2. `CXA/.ethics/ethics.md`
+3. `CXA/.exa/memory/routing.md`
 
 ---
 
@@ -16,8 +16,8 @@ This command handles all incoming and outgoing email through the single company 
 Single company email: `hello@[company].com`
 
 - ALL external email goes through this address
-- EXA routes to appropriate C-suite
-- EXA sends approved responses
+- CXA routes to appropriate C-suite
+- CXA sends approved responses
 - ALL email logged to BigQuery
 
 ---
@@ -210,9 +210,9 @@ hello@nanobanana.com
 ```
 Agent drafts response
         ↓
-EXA receives draft
+CXA receives draft
         ↓
-EXA sends from company email
+CXA sends from company email
         ↓
 Log to BigQuery
 ```
@@ -311,4 +311,4 @@ Spam emails → Log but do not route or respond.
 
 ---
 
-*All company email flows through EXA. Single address, unified voice.*
+*All company email flows through CXA. Single address, unified voice.*

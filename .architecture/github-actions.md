@@ -203,7 +203,7 @@ on:
         description: 'Agent to deploy (CEO, CFO, CMO, etc.)'
         required: true
         type: choice
-        options: [CEO, CFO, CMO, COO, CIO, CLO, CPO, CTO, EXA]
+        options: [CEO, CFO, CMO, COO, CIO, CLO, CPO, CTO, CXA]
       environment:
         description: 'Deployment environment'
         required: true
@@ -259,7 +259,7 @@ jobs:
   deploy:
     strategy:
       matrix:
-        agent: [CEO, CFO, CMO, COO, CIO, CLO, CPO, CTO, EXA]
+        agent: [CEO, CFO, CMO, COO, CIO, CLO, CPO, CTO, CXA]
         
     uses: ./.github/workflows/deploy-agent.yml
     with:
@@ -288,7 +288,7 @@ jobs:
     steps:
       - name: Check all agents
         run: |
-          AGENTS="CEO CFO CMO COO CIO CLO CPO CTO EXA"
+          AGENTS="CEO CFO CMO COO CIO CLO CPO CTO CXA"
           for agent in $AGENTS; do
             curl -f https://[region]-[project].cloudfunctions.net/${agent}-health || exit 1
           done

@@ -1,10 +1,10 @@
-# EXA - Executive Assistant Agent
+# CXA - Executive Assistant Agent
 
-> The front door of the company. All communications flow through EXA.
+> The front door of the company. All communications flow through CXA.
 
 ## Overview
 
-The Executive Assistant (EXA) agent manages all external communications, serving as the single point of contact for the company. EXA routes incoming communications to the appropriate C-suite agent and coordinates the Human's calendar.
+The Executive Assistant (CXA) agent manages all external communications, serving as the single point of contact for the company. CXA routes incoming communications to the appropriate C-suite agent and coordinates the Human's calendar.
 
 ## Core Responsibilities
 
@@ -18,7 +18,7 @@ The Executive Assistant (EXA) agent manages all external communications, serving
 
 ## Key Principle
 
-> **Route, don't decide.** EXA moves information to the right place; other agents make decisions.
+> **Route, don't decide.** CXA moves information to the right place; other agents make decisions.
 
 ## Communication Channels
 
@@ -33,15 +33,15 @@ Single point of contact for all external parties.
 ## Directory Structure
 
 ```
-EXA/
+CXA/
 ├── .ethics/
 │   └── ethics.md              # Governance (HUMAN-EDITABLE ONLY)
-├── .exa/
+├── .cxa/
 │   ├── commands/
-│   │   ├── exa.email.md       # Email handling
-│   │   ├── exa.phone.md       # Phone handling
-│   │   ├── exa.schedule.md    # Calendar management
-│   │   └── exa.contacts.md    # Contact management
+│   │   ├── cxa.email.md       # Email handling
+│   │   ├── cxa.phone.md       # Phone handling
+│   │   ├── cxa.schedule.md    # Calendar management
+│   │   └── cxa.contacts.md    # Contact management
 │   └── memory/
 │       ├── contacts.md        # Known contacts
 │       ├── templates.md       # Response templates
@@ -92,8 +92,8 @@ cannot:
   - Modify
 ```
 
-Revenue deposits are visible to EXA for notification purposes only.
-EXA notifies CFO of deposits; CFO manages the budget.
+Revenue deposits are visible to CXA for notification purposes only.
+CXA notifies CFO of deposits; CFO manages the budget.
 
 ## Integration Points
 
@@ -110,10 +110,10 @@ EXA notifies CFO of deposits; CFO manages the budget.
 
 | Command | Description |
 |---------|-------------|
-| `exa.email` | Process and route emails |
-| `exa.phone` | Handle phone calls |
-| `exa.schedule` | Manage meeting requests |
-| `exa.contacts` | Manage contact database |
+| `cxa.email` | Process and route emails |
+| `cxa.phone` | Handle phone calls |
+| `cxa.schedule` | Manage meeting requests |
+| `cxa.contacts` | Manage contact database |
 
 ## Governance
 
@@ -127,4 +127,4 @@ Key limitations:
 
 ---
 
-*EXA is the gatekeeper. Every external contact passes through here.*
+*CXA is the gatekeeper. Every external contact passes through here.*

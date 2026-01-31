@@ -278,7 +278,7 @@ FUNNEL ANALYSIS
 
 ---
 
-## EXA Scorecard
+## CXA Scorecard
 
 ### Executive Support Metrics
 
@@ -337,7 +337,7 @@ All KPIs are calculated from BigQuery data:
 | CLO | `compliance_checks`, `contracts` |
 | CPO | `product_analytics`, `user_events` |
 | CTO | `deployments`, `build_metrics` |
-| EXA | `communications_log`, `calendar_events` |
+| CXA | `communications_log`, `calendar_events` |
 
 ---
 

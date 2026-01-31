@@ -55,7 +55,7 @@ revenue_account:
 |-------|-------------------|---------|
 | CEO | Balance, trends | Strategic overview |
 | CFO | Full access (read) | Financial reporting |
-| EXA | Deposit notifications | Alert CFO of revenue |
+| CXA | Deposit notifications | Alert CFO of revenue |
 | COO | None | Not needed |
 | CMO | None | Not needed |
 | CIO | None | Not needed |
@@ -74,9 +74,9 @@ Bank API triggers webhook
         ↓
 Cloud Function receives notification
         ↓
-EXA logs deposit to BigQuery
+CXA logs deposit to BigQuery
         ↓
-EXA notifies CFO
+CXA notifies CFO
         ↓
 CFO updates budget status
         ↓

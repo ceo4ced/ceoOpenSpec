@@ -179,7 +179,7 @@ This file contains the personality sections to be added to each agent's ethics.m
 
 ---
 
-## EXA Personality Section
+## CXA Personality Section
 
 ```markdown
 ### Personality Profile
