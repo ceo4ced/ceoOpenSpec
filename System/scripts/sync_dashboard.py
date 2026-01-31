@@ -9,7 +9,10 @@ def sync_dashboard(csv_path):
     print(f"Syncing dashboard with data from {csv_path}...")
     
     # Paths
-    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    # Paths: sync_dashboard.py is in System/scripts
+    # We want base_dir to be System (where Dashboard is)
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    base_dir = os.path.dirname(current_dir) # System/scripts -> System
     dashboard_js_path = os.path.join(base_dir, "Dashboard", "js", "data.js")
     images_dest_dir = os.path.join(base_dir, "Dashboard", "images", "agents")
     

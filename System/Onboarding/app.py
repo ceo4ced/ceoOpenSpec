@@ -4,12 +4,18 @@ import json
 import math
 import os
 import random
+import sys
 import urllib.error
 import urllib.request
 from dataclasses import dataclass
 from datetime import date, datetime
+from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 from PIL import Image, ImageDraw, ImageFont
+
+# Add lib to path for API manager access
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
 
 CULTURE_MODES = [
     "friendly_safe",
@@ -1821,17 +1827,23 @@ def collect_backstories(
     vibe: VibeProfile,
     selection: SelectionConfig,
 ) -> Dict[str, str]:
-    env_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".env"))
+    # Go up two levels: Onboarding -> System -> Root
+    env_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", ".env.local"))
+    if not os.path.exists(env_path):
+        env_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", ".env"))
     load_env_file(env_path)
     api_key = os.getenv("OPENROUTER_API_KEY", "").strip()
-    default_model = os.getenv("OPENROUTER_MODEL", "mistralai/mistral-7b-instruct")
-    print("\nStep 8: Backstory generation (OpenRouter required)")
+    # Default to Gemini via OpenRouter
+    default_model = os.getenv("OPENROUTER_DEFAULT_MODEL", "google/gemini-2.0-flash-exp:free")
+    print("\nStep 8: Backstory generation (OpenRouter with Gemini)")
     if not api_key:
         raise RuntimeError(
-            "OPENROUTER_API_KEY is not set. Backstory generation requires OpenRouter."
+            "OPENROUTER_API_KEY is not set. Backstory generation requires OpenRouter.\n"
+            "Get your key at: https://openrouter.ai/keys\n"
+            "Then add to .env.local: OPENROUTER_API_KEY=sk-or-..."
         )
     backstories: Dict[str, str] = {}
-    model = prompt_text("OpenRouter model", default=default_model)
+    model = prompt_text("OpenRouter model (Gemini recommended)", default=default_model)
 
     for role in roles:
         bundle = assignment.roles.get(role)

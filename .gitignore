@@ -150,3 +150,9 @@ CLAUDE.md
 
 # Pnpm
 .pnpm-store/
+
+# Secrets (never commit these!)
+secrets/
+*.pem
+*.key
+service-account*.json

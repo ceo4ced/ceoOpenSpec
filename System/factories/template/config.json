@@ -1,0 +1,59 @@
+{
+    "factory_id": "template",
+    "description": "Default factory configuration template. Copy to create new factories.",
+    "owner": "",
+    "api_keys": {
+        "openrouter": "",
+        "openai": ""
+    },
+    "task_routing": {
+        "backstory_generation": {
+            "primary": {
+                "provider": "openrouter",
+                "model": "google/gemini-2.0-flash-exp:free",
+                "temperature": 0.8,
+                "max_tokens": 512
+            },
+            "fallback": {
+                "provider": "openrouter",
+                "model": "mistralai/mistral-7b-instruct:free",
+                "temperature": 0.8,
+                "max_tokens": 512
+            }
+        },
+        "image_generation": {
+            "primary": {
+                "provider": "openrouter",
+                "model": "google/gemini-2.0-flash-exp:free",
+                "temperature": 0.7,
+                "max_tokens": 1024
+            },
+            "fallback": {
+                "provider": "openai",
+                "model": "dall-e-3"
+            }
+        },
+        "agent_reasoning": {
+            "primary": {
+                "provider": "openrouter",
+                "model": "google/gemini-2.0-flash-exp:free",
+                "temperature": 0.5,
+                "max_tokens": 2048
+            },
+            "fallback": null
+        },
+        "quick_response": {
+            "primary": {
+                "provider": "openrouter",
+                "model": "google/gemini-2.0-flash-exp:free",
+                "temperature": 0.3,
+                "max_tokens": 256
+            },
+            "fallback": null
+        }
+    },
+    "billing": {
+        "track_by": "factory_id",
+        "budget_limit_monthly": null
+    }
+}

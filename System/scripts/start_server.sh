@@ -23,7 +23,8 @@ if lsof -ti:8000 >/dev/null; then
 fi
 
 # Navigate to dashboard directory
-cd "$(dirname "$0")/../dashboard" || { echo "Dashboard directory not found!"; exit 1; }
+# Navigate to dashboard directory (System/scripts -> System -> Dashboard)
+cd "$(dirname "$0")/../Dashboard" || { echo "Dashboard directory not found!"; exit 1; }
 
 # Install dependencies if node_modules is missing
 if [ ! -d "node_modules" ]; then
