@@ -1,0 +1,208 @@
+{
+  "plan_section": {
+    "component": "PlanSection",
+    "description": "Displays the Business Plan for the CEO dashboard",
+    "data_source": {
+      "path": "C-Suites/CEO/README.md",
+      "title": "Business Plan",
+      "format": "markdown"
+    },
+    "layout": {
+      "height": "280px",
+      "height_expanded": "100vh",
+      "grid": "30% TOC / 70% Content",
+      "background": "#111827",
+      "border": "1px solid #1e293b",
+      "border_radius": "8px"
+    },
+    "header": {
+      "icon": "\ud83d\udccb",
+      "title": "CEO Plan",
+      "actions": [
+        {
+          "label": "Expand",
+          "icon": "\u2197",
+          "action": "toggleExpand"
+        },
+        {
+          "label": "Edit",
+          "icon": "\u270e",
+          "action": "openEditor"
+        }
+      ]
+    },
+    "toc_panel": {
+      "width": "30%",
+      "features": [
+        "Auto-generated from markdown headings",
+        "Click to scroll content",
+        "Highlight active section",
+        "Show last updated date",
+        "Show completion status"
+      ]
+    },
+    "content_panel": {
+      "width": "70%",
+      "features": [
+        "Markdown rendering",
+        "Syntax highlighting for code",
+        "Table rendering",
+        "Scroll sync with TOC",
+        "Progress indicators"
+      ]
+    },
+    "status_indicators": {
+      "compliant": {
+        "icon": "\u25cf",
+        "color": "#10b981",
+        "label": "Compliant"
+      },
+      "review": {
+        "icon": "\u25cb",
+        "color": "#f59e0b",
+        "label": "In Review"
+      },
+      "draft": {
+        "icon": "\u25cb",
+        "color": "#64748b",
+        "label": "Draft"
+      },
+      "overdue": {
+        "icon": "\u25cf",
+        "color": "#ef4444",
+        "label": "Overdue"
+      }
+    }
+  },
+  "function_activity": {
+    "component": "FunctionActivitySection",
+    "description": "Real-time function execution tracking with newest entries at top",
+    "layout": {
+      "height": "320px",
+      "overflow": "auto",
+      "background": "#0f172a",
+      "border": "1px solid #1e293b",
+      "border_radius": "8px"
+    },
+    "header": {
+      "icon": "\u26a1",
+      "title": "Function Activity",
+      "actions": [
+        {
+          "label": "Filter",
+          "icon": "\u25bc",
+          "action": "openFilter"
+        },
+        {
+          "label": "Clear",
+          "icon": "\u00d7",
+          "action": "clearActivity"
+        }
+      ]
+    },
+    "entry_states": {
+      "running": {
+        "icon": "\u25cf",
+        "color": "#10b981",
+        "badge": "RUN",
+        "badge_bg": "#10b98120",
+        "animation": "pulse"
+      },
+      "success": {
+        "icon": "\u2713",
+        "color": "#10b981",
+        "badge": "OK",
+        "badge_bg": "#10b98120"
+      },
+      "error": {
+        "icon": "\u2715",
+        "color": "#ef4444",
+        "badge": "ERR",
+        "badge_bg": "#ef444420"
+      },
+      "pending": {
+        "icon": "\u25cb",
+        "color": "#64748b",
+        "badge": "WAIT",
+        "badge_bg": "#64748b20"
+      }
+    },
+    "entry_structure": {
+      "collapsed": {
+        "fields": [
+          "functionName",
+          "timestamp",
+          "status",
+          "summary"
+        ],
+        "summary_format": "Completed in {duration}s | Tokens: {tokens} | Cost: ${cost}"
+      },
+      "expanded": {
+        "fields": [
+          "functionName",
+          "timestamp",
+          "status",
+          "input",
+          "output",
+          "progress",
+          "metrics"
+        ],
+        "show_progress_bar": true,
+        "show_estimated_time": true
+      }
+    },
+    "behavior": {
+      "sort_order": "newest_first",
+      "insert_position": "prepend",
+      "max_entries": 50,
+      "prune_strategy": "remove_oldest",
+      "auto_expand_running": true,
+      "auto_collapse_complete": true
+    },
+    "filter_options": [
+      {
+        "label": "All",
+        "value": "all"
+      },
+      {
+        "label": "Running",
+        "value": "running"
+      },
+      {
+        "label": "Errors",
+        "value": "error"
+      },
+      {
+        "label": "This Role Only",
+        "value": "role"
+      }
+    ],
+    "data_interface": {
+      "typescript": "interface FunctionActivity {\n  id: string;\n  role: string;\n  functionName: string;\n  status: 'running' | 'success' | 'error' | 'pending';\n  timestamp: Date;\n  input?: Record<string, any>;\n  output?: Record<string, any>;\n  error?: string;\n  progress?: number;\n  estimatedRemaining?: number;\n  duration?: number;\n  tokens?: number;\n  cost?: number;\n}"
+    }
+  },
+  "layout_rules": {
+    "hierarchy": [
+      "1. Header (fixed top)",
+      "2. Flexible Zone (scrollable middle)",
+      "   - Plan Section",
+      "   - Function Activity Section",
+      "   - [Future sections insert here]",
+      "3. Fixed Zone (sticky bottom)",
+      "   - Agent Activity Console"
+    ],
+    "insertion_rule": "New sections ALWAYS insert above Activity Console",
+    "z_index": {
+      "header": 50,
+      "flexible_content": 1,
+      "activity_console": 10,
+      "modals": 100,
+      "expanded_plan": 100
+    },
+    "breakpoints": {
+      "mobile": "max-width: 768px",
+      "tablet": "max-width: 1024px",
+      "desktop": "min-width: 1025px"
+    }
+  }
+}
