@@ -71,12 +71,34 @@ ceoOpenSpec/
 │   ├── .cpo/                     # Commands, templates, memory
 │   └── logs/
 │
-└── CTO/                          # Chief Technology Officer
-    ├── .ethics/ethics.md         # CTO non-dev ethics (HUMAN ONLY)
-    ├── .specify/                 # SpecKit (existing)
-    │   └── memory/constitution.md # Development governance
-    ├── .claude/commands/         # SpecKit commands
-    └── logs/
+├── CTO/                          # Chief Technology Officer
+│   ├── .ethics/ethics.md         # CTO non-dev ethics (HUMAN ONLY)
+│   ├── .specify/                 # SpecKit (existing)
+│   │   └── memory/constitution.md # Development governance
+│   ├── .claude/commands/         # SpecKit commands
+│   └── logs/
+│
+├── CXA/                          # Chief Experience Agent
+│   ├── .ethics/ethics.md         # CXA governance (HUMAN ONLY)
+│   ├── .cxa/                     # Commands, templates, memory
+│   └── logs/
+│
+└── System/                       # Agent Implementation
+    ├── functions/                # Cloud Functions (agents)
+    │   ├── ceo/main.py          # CEO agent implementation
+    │   ├── cfo/main.py          # CFO agent implementation
+    │   ├── cmo/main.py          # CMO agent implementation
+    │   ├── coo/main.py          # COO agent implementation
+    │   ├── cio/main.py          # CIO agent implementation
+    │   ├── clo/main.py          # CLO agent implementation
+    │   ├── cpo/main.py          # CPO agent implementation
+    │   ├── cto/main.py          # CTO agent implementation
+    │   ├── cxa/main.py          # CXA agent implementation
+    │   ├── packages/            # Shared code
+    │   │   └── factory_core/    # BaseAgent class
+    │   └── tests/               # Unit tests
+    └── lib/                     # Shared libraries
+        └── api_manager.py       # LLM API integration
 ```
 
 ---
@@ -124,7 +146,8 @@ ceoOpenSpec/
 | **CIO** | Data governance, security, privacy | NIST, ISO 27001, HIPAA |
 | **CLO** | Legal research, contracts (paralegal) | ABA Guidelines, UPL Rules |
 | **CPO** | Product decisions, roadmap, metrics | PM Constitution, RICE/WSJF |
-| **CTO** | Technology, uses SpecKit | WCAG, Security Standards |
+| **CTO** | Technology, uses SpecKit (GATED) | WCAG, Security Standards |
+| **CXA** | External communication, email routing | CAN-SPAM, TCPA, CASL |
 
 ---
 
@@ -159,6 +182,39 @@ Set up Telegram or Signal integration for communicating with agents.
 ### 5. Start Your Business
 
 Send your business idea to the CEO agent and watch the C-suite go to work!
+
+---
+
+## Development
+
+### Running Tests
+
+To run the unit tests for all C-Suite agents:
+
+```bash
+cd System/functions/tests
+pip install -r requirements.txt
+python -m pytest -v
+```
+
+The test suite includes 151 tests covering:
+- BaseAgent initialization and command dispatch
+- All 9 C-Suite agents and their commands
+- Validation gate logic (CMO → CTO)
+- Email routing (CXA)
+- High-risk domain detection
+
+### API Configuration
+
+The agents use LLM integration via the APIManager:
+
+```bash
+# Set environment variables
+export OPENROUTER_API_KEY="your-openrouter-key"
+export OPENAI_API_KEY="your-openai-key"  # Fallback
+```
+
+The system uses OpenRouter as the primary provider with OpenAI as fallback.
 
 ---
 
@@ -203,12 +259,25 @@ Each position operates under specific regulatory frameworks covering:
 
 🚧 **Under Development**
 
+### Completed
+
 - [x] Governance structure (.mission, .ethics)
-- [x] All C-suite ethics files (8 positions)
+- [x] All C-suite ethics files (9 positions)
 - [x] CODEOWNERS protection
-- [x] CEO agent commands (5 commands)
-- [x] CPO agent commands (4 commands - PM Constitution)
-- [/] CFO, CMO, COO, CIO, CLO agent commands
+- [x] **CEO Agent** - 6 commands (vision, plan, propagate, onboard, inquire, report)
+- [x] **CFO Agent** - 6 commands (budget, tokens, payments, forecast, compliance, analyze)
+- [x] **CMO Agent** - 9 commands (validate, approve, strategy, campaign, content, brand, logo, tiktok, website)
+- [x] **COO Agent** - 5 commands (process, workforce, logistics, quality, callcenter)
+- [x] **CIO Agent** - 6 commands (security, data, infrastructure, privacy, mcp, redundancy)
+- [x] **CLO Agent** - 5 commands (compliance, contract, risk, research, jurisdiction)
+- [x] **CPO Agent** - 5 commands (prd, roadmap, metrics, onepager, decide)
+- [x] **CTO Agent** - 4 commands (status, plan, implement, backups) - GATED
+- [x] **CXA Agent** - 4 commands (email, phone, schedule, contacts)
+- [x] BaseAgent with LLM integration (OpenRouter + OpenAI fallback)
+- [x] Unit tests for all agents (151 tests)
+
+### In Progress
+
 - [ ] Inter-agent communication protocol
 - [ ] GitHub Actions orchestration
 - [ ] Telegram integration

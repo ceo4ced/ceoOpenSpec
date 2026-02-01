@@ -1,10 +1,12 @@
 .console {
     background: #0a0e1a;
-    border: 1px solid #1e293b;
-    border-radius: 8px;
+    border: none;
+    border-radius: 0;
     overflow: hidden;
     font-family: 'SF Mono', 'Monaco', 'Consolas', monospace;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .consoleHeader {
@@ -62,7 +64,7 @@
 
 .consoleBody {
     padding: 1rem;
-    max-height: 400px;
+    max-height: 140px;
     overflow-y: auto;
     background: #0a0e1a;
 }

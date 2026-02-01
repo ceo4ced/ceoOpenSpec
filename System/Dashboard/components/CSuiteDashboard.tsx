@@ -12,6 +12,8 @@ import {
 } from './RoleDashboards';
 import AgentActivityConsole from './AgentActivityConsole';
 import TokenPerformanceCard from './TokenPerformanceCard';
+import PlanSection from './PlanSection';
+import FunctionActivitySection from './FunctionActivitySection';
 
 interface CSuiteDashboardProps {
     role: string;
@@ -39,19 +41,34 @@ export default function CSuiteDashboard({ role, onAgentClick }: CSuiteDashboardP
     const showTokenCard = rolesWithTokenCard.includes(role);
 
     return (
-        <>
-            {/* Original dashboard content */}
-            {renderOriginalDashboard()}
-
-            {/* Token Performance Card for non-CEO roles - full width, above activity console */}
-            {showTokenCard && <TokenPerformanceCard role={role} />}
-
-            {/* Activity Console at the bottom */}
-            <div className="dashboard-grid" style={{ marginTop: showTokenCard ? '0' : '2rem' }}>
-                <div className="col-12">
-                    <AgentActivityConsole />
+        <div className="dashboard-content">
+            {/* FLEXIBLE ZONE - Scrollable content area */}
+            <div className="flexible-zone">
+                {/* Plan Section - Shows role's plan document */}
+                <div className="dashboard-grid">
+                    <div className="col-12">
+                        <PlanSection role={role} />
+                    </div>
                 </div>
+
+                {/* Function Activity Section - Shows function executions */}
+                <div className="dashboard-grid">
+                    <div className="col-12">
+                        <FunctionActivitySection role={role} />
+                    </div>
+                </div>
+
+                {/* Original dashboard content */}
+                {renderOriginalDashboard()}
+
+                {/* Token Performance Card for non-CEO roles */}
+                {showTokenCard && <TokenPerformanceCard role={role} />}
             </div>
-        </>
+
+            {/* FIXED ZONE - Always at bottom */}
+            <div className="fixed-zone">
+                <AgentActivityConsole />
+            </div>
+        </div>
     );
 }

@@ -304,6 +304,54 @@ button {
 /* ===== Dashboard Content ===== */
 .dashboard-content {
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - var(--header-height));
+    overflow: hidden;
+}
+
+/* Flexible Zone - scrollable content area */
+.flexible-zone {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1.5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.flexible-zone::-webkit-scrollbar {
+    width: 8px;
+}
+
+.flexible-zone::-webkit-scrollbar-track {
+    background: var(--bg-primary);
+}
+
+.flexible-zone::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 4px;
+}
+
+.flexible-zone::-webkit-scrollbar-thumb:hover {
+    background: var(--border-light);
+}
+
+/* Fixed Zone - always at bottom */
+.fixed-zone {
+    flex-shrink: 0;
+    height: 200px;
+    border-top: 1px solid var(--border-color);
+    background: var(--bg-secondary);
+}
+
+.fixed-zone > * {
+    height: 100%;
+}
+
+/* Legacy support for pages not using new layout */
+.dashboard-content:not(:has(.flexible-zone)) {
+    display: block;
     padding: 1.5rem 2rem;
     overflow-y: auto;
 }

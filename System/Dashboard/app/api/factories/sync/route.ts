@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
-import { syncFactory, syncAllFactories } from '../../../lib/sync';
-import { getFactories } from '../../../lib/factory';
+import { syncFactory, syncAllFactories } from '../../../../lib/sync';
+import { getFactories } from '../../../../lib/factory';
 
 export async function POST(request: Request) {
     try {
