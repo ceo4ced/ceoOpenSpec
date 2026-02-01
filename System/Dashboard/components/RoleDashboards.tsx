@@ -2,7 +2,7 @@
 import React from 'react';
 import MetricCard from './MetricCard';
 import AgentCard from './AgentCard';
-import PlanSection from './PlanSection';
+import ChairmanExecutiveSummary from './ChairmanExecutiveSummary';
 import { METRICS, AGENT_STATUS, PENDING_APPROVALS, TABLE_DATA, RED_PHONE_ALERTS, AGENTS } from '@/lib/data';
 
 interface DashboardProps {
@@ -56,9 +56,9 @@ export const ChairmanDashboard = ({ onAgentClick }: DashboardProps) => {
                 </div>
             )}
 
-            {/* Financial Plan Section - CFO's Financial Plan for Chairman visibility */}
+            {/* Executive Summary - All plans with performance by period */}
             <div className="col-12">
-                <PlanSection role="cfo" />
+                <ChairmanExecutiveSummary />
             </div>
 
             <div className="col-12">
