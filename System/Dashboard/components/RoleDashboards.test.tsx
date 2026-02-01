@@ -69,24 +69,24 @@ describe('RoleDashboards Components', () => {
     });
 
     describe('CEODashboard', () => {
-        it('triggers onAgentClick when an agent card is clicked', () => {
-            const onAgentClick = jest.fn();
-            render(<CEODashboard onAgentClick={onAgentClick} />);
+        it('renders token usage and performance metrics', () => {
+            render(<CEODashboard />);
 
-            // In CEO dashboard, 'cfo' is present.
-            // CFO task: "Preparing monthly financial report"
-            const cfoTask = screen.getByText('Preparing monthly financial report');
-            fireEvent.click(cfoTask);
+            // CEO dashboard shows token usage
+            expect(screen.getByText("Today's Tokens")).toBeInTheDocument();
+            expect(screen.getByText("24.5K")).toBeInTheDocument();
 
-            expect(onAgentClick).toHaveBeenCalledWith('cfo');
+            // Shows performance metrics
+            expect(screen.getByText("Task Success Rate")).toBeInTheDocument();
+            expect(screen.getByText("94%")).toBeInTheDocument();
         });
 
-        it('renders Chairman in the list', () => {
-            const onAgentClick = jest.fn();
-            render(<CEODashboard onAgentClick={onAgentClick} />);
-            const chairmanTask = screen.getByText("Reviewing boardroom directives");
-            fireEvent.click(chairmanTask);
-            expect(onAgentClick).toHaveBeenCalledWith('chairman');
+        it('renders recent tasks', () => {
+            render(<CEODashboard />);
+
+            expect(screen.getByText("Analyzed Q4 Financial Reports")).toBeInTheDocument();
+            expect(screen.getByText("Prepared Executive Summary")).toBeInTheDocument();
+            expect(screen.getByText("Reviewing Strategic Initiatives")).toBeInTheDocument();
         });
     });
 
