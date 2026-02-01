@@ -33,6 +33,32 @@
     font-size: 1rem;
 }
 
+.loadingIndicator {
+    font-size: 0.875rem;
+    color: #3b82f6;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.liveIndicator {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    color: #10b981;
+    padding: 2px 8px;
+    background: rgba(16, 185, 129, 0.15);
+    border-radius: 10px;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+}
+
 .periodTabs {
     display: flex;
     gap: 4px;

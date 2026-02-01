@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import styles from './ChairmanExecutiveSummary.module.css';
 
 // All C-Suite plans
@@ -19,6 +19,8 @@ const ALL_PLANS = [
 type Period = 'weekly' | 'quarterly' | 'annual';
 
 interface PlanSummary {
+    role?: string;
+    title?: string;
     narrative: string;
     keyMetrics: { label: string; value: string; trend: 'up' | 'down' | 'flat'; percent: number }[];
     status: 'on-track' | 'attention' | 'at-risk';
@@ -320,8 +322,41 @@ const PLAN_SUMMARIES: Record<string, Record<Period, PlanSummary>> = {
 export default function ChairmanExecutiveSummary() {
     const [selectedPeriod, setSelectedPeriod] = useState<Period>('weekly');
     const [selectedPlan, setSelectedPlan] = useState<string>('CEO');
+    const [liveData, setLiveData] = useState<Record<string, PlanSummary>>({});
+    const [isLoading, setIsLoading] = useState(false);
+    const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
 
-    const summary = PLAN_SUMMARIES[selectedPlan]?.[selectedPeriod];
+    // Fetch live data from API
+    const fetchSummaries = useCallback(async () => {
+        setIsLoading(true);
+        try {
+            const response = await fetch(`/api/chairman/summary?period=${selectedPeriod}`);
+            const result = await response.json();
+            if (result.success && result.data) {
+                const dataMap: Record<string, PlanSummary> = {};
+                result.data.forEach((item: PlanSummary & { role: string }) => {
+                    dataMap[item.role] = item;
+                });
+                setLiveData(dataMap);
+                setLastUpdated(new Date());
+            }
+        } catch (error) {
+            console.error('Failed to fetch summaries:', error);
+        } finally {
+            setIsLoading(false);
+        }
+    }, [selectedPeriod]);
+
+    // Fetch on mount and when period changes
+    useEffect(() => {
+        fetchSummaries();
+        // Refresh every 30 seconds
+        const interval = setInterval(fetchSummaries, 30000);
+        return () => clearInterval(interval);
+    }, [fetchSummaries]);
+
+    // Use live data if available, fallback to mock data
+    const summary = liveData[selectedPlan] || PLAN_SUMMARIES[selectedPlan]?.[selectedPeriod];
     const planInfo = ALL_PLANS.find(p => p.role === selectedPlan);
 
     const getStatusBadge = (status: PlanSummary['status']) => {
@@ -394,6 +429,12 @@ export default function ChairmanExecutiveSummary() {
                 <div className={styles.titleSection}>
                     <span className={styles.icon}>🏛️</span>
                     <span className={styles.title}>Executive Summary</span>
+                    {isLoading && <span className={styles.loadingIndicator}>⟳</span>}
+                    {lastUpdated && !isLoading && (
+                        <span className={styles.liveIndicator} title={`Last updated: ${lastUpdated.toLocaleTimeString()}`}>
+                            ● LIVE
+                        </span>
+                    )}
                 </div>
                 <div className={styles.periodTabs}>
                     <button
