@@ -3,6 +3,7 @@ import React from 'react';
 import MetricCard from './MetricCard';
 import AgentCard from './AgentCard';
 import ChairmanExecutiveSummary from './ChairmanExecutiveSummary';
+import ChairmanTabs from './ChairmanTabs';
 import { METRICS, AGENT_STATUS, PENDING_APPROVALS, TABLE_DATA, RED_PHONE_ALERTS, AGENTS } from '@/lib/data';
 
 interface DashboardProps {
@@ -107,6 +108,11 @@ export const ChairmanDashboard = ({ onAgentClick }: DashboardProps) => {
                         </div>
                     </div>
                 </div>
+            </div>
+
+            {/* Detailed Tabs - Finances, Agents, MCPs, Tokens, Models, Logs */}
+            <div className="col-12">
+                <ChairmanTabs />
             </div>
         </div>
     );

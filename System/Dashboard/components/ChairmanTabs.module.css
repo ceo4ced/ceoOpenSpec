@@ -1,0 +1,423 @@
+.container {
+    background: #0f172a;
+    border: 1px solid #1e293b;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.tabBar {
+    display: flex;
+    gap: 4px;
+    padding: 8px;
+    background: #111827;
+    border-bottom: 1px solid #1e293b;
+    overflow-x: auto;
+}
+
+.tab {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border: none;
+    background: transparent;
+    color: #64748b;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.tab:hover {
+    background: rgba(59, 130, 246, 0.1);
+    color: #94a3b8;
+}
+
+.tab.active {
+    background: #3b82f6;
+    color: #ffffff;
+}
+
+.tabIcon {
+    font-size: 1rem;
+}
+
+.tabLabel {
+    font-size: 0.8125rem;
+}
+
+.tabContent {
+    padding: 16px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.tabContent::-webkit-scrollbar {
+    width: 8px;
+}
+
+.tabContent::-webkit-scrollbar-track {
+    background: #0f172a;
+}
+
+.tabContent::-webkit-scrollbar-thumb {
+    background: #334155;
+    border-radius: 4px;
+}
+
+.section {
+    margin-bottom: 24px;
+}
+
+.section:last-child {
+    margin-bottom: 0;
+}
+
+.sectionTitle {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #94a3b8;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Finances Tab */
+.capitalGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.capitalItem {
+    background: #111827;
+    padding: 12px;
+    border-radius: 6px;
+    text-align: center;
+}
+
+.capitalLabel {
+    display: block;
+    font-size: 0.75rem;
+    color: #64748b;
+    margin-bottom: 4px;
+}
+
+.capitalValue {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #f9fafb;
+}
+
+.progressBar {
+    height: 8px;
+    background: #1e293b;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 4px;
+}
+
+.progressFill {
+    height: 100%;
+    background: #10b981;
+    border-radius: 4px;
+    transition: width 0.3s ease;
+}
+
+.progressLabel {
+    font-size: 0.75rem;
+    color: #64748b;
+    text-align: center;
+}
+
+.budgetGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.budgetCard {
+    background: #111827;
+    padding: 16px;
+    border-radius: 6px;
+}
+
+.budgetLabel {
+    font-size: 0.75rem;
+    color: #64748b;
+    margin-bottom: 8px;
+}
+
+.budgetValue {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #f9fafb;
+    margin-bottom: 8px;
+}
+
+/* Agents Tab */
+.agentGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.agentCard {
+    background: #111827;
+    border: 1px solid #1e293b;
+    border-radius: 6px;
+    padding: 12px;
+    transition: border-color 0.2s ease;
+}
+
+.agentCard.active {
+    border-color: #10b981;
+}
+
+.agentCard.working {
+    border-color: #f59e0b;
+}
+
+.agentCard.gated {
+    border-color: #64748b;
+}
+
+.agentHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.agentName {
+    font-weight: 600;
+    color: #f9fafb;
+}
+
+.agentStatus {
+    font-size: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.agentStatus.active { color: #10b981; }
+.agentStatus.working { color: #f59e0b; }
+.agentStatus.idle { color: #10b981; }
+.agentStatus.gated { color: #64748b; }
+
+.agentTask {
+    font-size: 0.8125rem;
+    color: #94a3b8;
+    margin-bottom: 8px;
+}
+
+.agentStats {
+    font-size: 0.75rem;
+    color: #64748b;
+}
+
+/* MCPs Tab */
+.mcpGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.mcpCard {
+    background: #111827;
+    border: 1px solid #1e293b;
+    border-radius: 6px;
+    padding: 12px;
+}
+
+.mcpHeader {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.mcpStatus {
+    font-size: 0.625rem;
+}
+
+.mcpStatus.online { color: #10b981; }
+.mcpStatus.offline { color: #ef4444; }
+
+.mcpName {
+    font-weight: 600;
+    color: #f9fafb;
+    flex: 1;
+}
+
+.mcpCostBadge {
+    font-size: 0.625rem;
+    padding: 2px 6px;
+    background: rgba(245, 158, 11, 0.15);
+    color: #f59e0b;
+    border-radius: 4px;
+}
+
+.mcpStats {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: #64748b;
+}
+
+/* Tokens Tab */
+.tokenSummary {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.tokenStat {
+    background: #111827;
+    padding: 12px;
+    border-radius: 6px;
+    text-align: center;
+}
+
+.tokenLabel {
+    display: block;
+    font-size: 0.75rem;
+    color: #64748b;
+    margin-bottom: 4px;
+}
+
+.tokenValue {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #f9fafb;
+}
+
+.tokenTable, .modelTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tokenTable th, .tokenTable td,
+.modelTable th, .modelTable td {
+    padding: 10px 12px;
+    text-align: left;
+    border-bottom: 1px solid #1e293b;
+}
+
+.tokenTable th, .modelTable th {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #64748b;
+    text-transform: uppercase;
+}
+
+.tokenTable td, .modelTable td {
+    font-size: 0.8125rem;
+    color: #cbd5e1;
+}
+
+.warning {
+    color: #ef4444;
+    font-weight: 600;
+}
+
+.ok {
+    color: #10b981;
+}
+
+/* Models Tab */
+.modelName {
+    font-family: 'SF Mono', Monaco, Consolas, monospace;
+    color: #3b82f6 !important;
+}
+
+/* Logs Tab */
+.logList {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.logEntry {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px;
+    background: #111827;
+    border-radius: 6px;
+    border-left: 3px solid #334155;
+}
+
+.logEntry.thinking { border-left-color: #8b5cf6; }
+.logEntry.command { border-left-color: #3b82f6; }
+.logEntry.approval { border-left-color: #10b981; }
+.logEntry.budget { border-left-color: #f59e0b; }
+.logEntry.mcp { border-left-color: #06b6d4; }
+
+.logIcon {
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+
+.logTime {
+    font-size: 0.75rem;
+    color: #64748b;
+    flex-shrink: 0;
+    width: 60px;
+}
+
+.logAgent {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #3b82f6;
+    flex-shrink: 0;
+    width: 60px;
+}
+
+.logMessage {
+    flex: 1;
+    font-size: 0.8125rem;
+    color: #cbd5e1;
+}
+
+.logTokens {
+    font-size: 0.75rem;
+    color: #64748b;
+    flex-shrink: 0;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .capitalGrid, .tokenSummary {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .agentGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .capitalGrid, .tokenSummary {
+        grid-template-columns: 1fr;
+    }
+
+    .agentGrid, .mcpGrid, .budgetGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .logEntry {
+        flex-wrap: wrap;
+    }
+
+    .logMessage {
+        width: 100%;
+        order: 10;
+        margin-top: 8px;
+    }
+}
