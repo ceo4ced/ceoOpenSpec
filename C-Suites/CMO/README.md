@@ -319,6 +319,27 @@
 | `cmo.logo` | Logo concept generation |
 | `cmo.tiktok` | TikTok content creation |
 | `cmo.website` | Website specifications |
+| `cmo.dashboard` | Dashboard UI specifications and design |
+
+### 7.2.1 Dashboard Specification Commands
+
+The CMO is responsible for all visual design specifications, including dashboard UI updates.
+
+| Action | Command | Description |
+|--------|---------|-------------|
+| Full Spec | `cmo.dashboard '{"action": "spec"}'` | Complete dashboard update specification |
+| Plan Section | `cmo.dashboard '{"action": "plan"}'` | Plan section component spec |
+| Activity Section | `cmo.dashboard '{"action": "activity"}'` | Function activity component spec |
+| Layout/CSS | `cmo.dashboard '{"action": "layout"}'` | CSS and layout rules |
+| Export All | `cmo.dashboard '{"action": "export"}'` | Export all specs to files |
+
+**Dashboard Responsibilities:**
+- Specification of new UI components for C-Suite dashboards
+- Plan Section: Displays role's plan document with TOC navigation
+- Function Activity Section: Real-time function execution tracking
+- Layout rules ensuring Activity Console stays at bottom
+- CSS/styling specifications following dark theme conventions
+- All dashboard changes require **GREENLIGHT: DASHBOARD** from human
 
 ### 7.3 Key Metrics Dashboard
 
